@@ -15,7 +15,6 @@
         
         
         <title>U.K. Indicators For The Sustainable Development Goals</title>
-        <!-- <meta property="og:title" content="U.S. Data Federation"> -->
         <meta name="description" content="">
         <meta property="og:description" content="">
         
@@ -42,7 +41,7 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.3/css/fixedColumns.dataTables.min.css">
-        <link rel="stylesheet" href="/sdg-indicators/assets/css/default.css?v=20171128171941">
+        <link rel="stylesheet" href="/sdg-indicators/assets/css/default.css?v=20180215143831">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
     </head>
 <body>
@@ -61,13 +60,13 @@
 <header role="banner">
   <div class="container">
 
-    <div class='col-xs-12'>
-      <ul id='accessibility-nav'></ul>
-    </div>
-
     <a class="navbar-brand" href="/sdg-indicators/" id="home">
       <img src="/sdg-indicators/assets/img/SDG_logo.png" alt="Sustainable Development Goals - 17 Goals to Transform our World" />
     </a>
+
+  <div class='hidden visible-xs float-right'>
+    <ul id='accessibility-nav' class='contrast-switcher'></ul>
+  </div>
 
     <nav class="navbar navbar-default" id="main-nav">
 
@@ -76,7 +75,7 @@
         <li><span data-target="search">Search</span></li>
       </ul>
 
-      <ul class="nav navbar-nav menu-target" id="menu">
+      <ul class="nav navbar-nav menu-target contrast-switcher" id="menu">
         <li class="nav-link"
           >
           <a href="/sdg-indicators/">Goals</a>
@@ -111,13 +110,14 @@
         <h1>Putting the numbers into context</h1>
         <p>As well as collecting and reporting UK data for the global Sustainable Development Goals indicators, ONS will be releasing various publications putting the numbers into context. We will make these publications available on this page.</p>
 
-<p>Between July and September, we ran a public consultation asking for feedback on our approach to reporting and prioritising data development for SDGs. We plan to publish our response to the consultation in December, which will include details of our plans for future reporting.</p>
-
 <p>If you have any feedback on our publications please contact us at <a href="mailto:sustainabledevelopment@ons.gov.uk">sustainabledevelopment@ons.gov.uk</a></p>
 
 <h2 id="publications">Publications</h2>
 
 <h3 id="all-goals">All goals</h3>
+
+<p><strong><a href="https://consultations.ons.gov.uk/sustainable-development-goals/ons-approach-to-measuring-reporting-sdgs-in-the-uk/">Response to our consulation on the approach to measuring and reporting SDGs in the UK, 11 December 2017</a></strong><br />
+We ran a public consultation between 29 June and 29 September 2017 to look at our approach to reporting and how we prioritise areas for developing data for the SDG indicators. We received 111 responses from a wide variety of sectors. This report is our response to your feedback.</p>
 
 <p><strong><a href="https://www.ons.gov.uk/economy/environmentalaccounts/articles/sustainabledevelopmentgoalstakingstockprogressandpossibilities/november2017">Sustainable Development Goals: progress and possibilities, 9 November 2017</a></strong><br />
 This is our first report on the progress we’ve made towards measuring the global Sustainable Development Goal (SDG) indicators in the UK. It looks at the work we have been doing to be able to measure our progress and explains how we are already sharing the data we have.</p>
@@ -138,12 +138,12 @@ This SlideShare takes a look at renewable energy consumption in the UK which is 
 <footer role="contentinfo">
   <div class="container">
     <div class="row">
-      <div class="col-xs-7">
+      <div class="col-xs-9">
         Contact us at
-        <a href="mailto:sustainabledevelopment@ons.gov.uk">sustainabledevelopment@ons.gov.uk</a>.
+        <a href="mailto:sustainabledevelopment@ons.gov.uk">sustainabledevelopment@ons.gov.uk</a> | <a class="twitter-follow-button" href="https://twitter.com/StatsClaudie?ref_src=twsrc%5Etfw" data-show-count="false">@StatsClaudie</a>
       </div>
-      <div class="col-xs-5 text-right">
-        <a href="/sdg-indicators/faq/">Frequently Asked Questions</a>
+      <div class="col-xs-3 text-right">
+        <a href="/sdg-indicators/faq/">FAQs</a> | <a href="/sdg-indicators/about/cookies-and-privacy/">Cookies</a>
       </div>
     </div>
   </div>
@@ -174,30 +174,12 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
 <script type="text/javascript"> window.loop11_key = "0104054b3b56d396b42e668dfe096cee161454a8"; </script>
 <script src="//cdn.loop11.com/my/loop11.js" type="text/javascript" async="async"></script>
-<script src='/sdg-indicators/assets/js/sdg.js?v=20171128171941'></script>
+<script src='/sdg-indicators/assets/js/sdg.js?v=20180215143831'></script>
 <script src="/sdg-indicators/assets/js/lib/classList.js"></script>
 <script src="/sdg-indicators/assets/js/lib/modernizr-custom.js"></script>
 <script src="//cdn.jsdelivr.net/bluebird/3.5.0/bluebird.min.js"></script>
 <script>
 $(function() {
-      $('#metadata .collapsible h3').click(function() {
-      var $container = $(this).closest('div'),
-          $article = $(this).next('article'),
-          $span = $(this).find('span');
-
-      $article.slideToggle(function() {
-        if($container.hasClass('expanded')) {
-          $container.removeClass('expanded');
-          $container.addClass('collapsed');
-          $span.html(' (Expand)');
-        } else {
-          $container.removeClass('collapsed');
-          $container.addClass('expanded');
-          $span.html(' (Collapse)');
-        }
-      });
-    });
-
     if($('#indicatorData').length) {
       var domData = $('#indicatorData').data();
 

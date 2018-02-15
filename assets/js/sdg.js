@@ -126,7 +126,7 @@ var accessibilitySwitcher = function() {
   ////////////////////////////////////////////////////////////////////////////////////
 
   _.each(contrastIdentifiers, function(contrast) {
-    $('#accessibility-nav').append($('<li />').attr({
+    $('.contrast-switcher').append($('<li />').attr({
       'class': 'nav-link contrast contrast-' + contrast
     }).html($('<a />').attr({
       'href': 'javascript:void(0)',
@@ -213,12 +213,50 @@ var indicatorModel = function (options) {
   this.selectedFields = [];
   this.allowedFields = [];
   this.selectedUnit = undefined;
+  this.fieldsByUnit = undefined;
+  this.dataHasUnitSpecificFields = false;
   this.fieldValueStatuses = [];
-  this.userInteraction = {};
   this.validParentsByChild = {};
 
   // initialise the field information, unique fields and unique values for each field:
   (function initialise() {
+
+    var extractUnique = function(prop) {
+      return _.chain(that.data).pluck(prop).uniq().sortBy(function(year) {
+        return year;
+      }).value();
+    };
+
+    that.years = extractUnique('Year');
+
+    if(that.data[0].hasOwnProperty('Units')) {
+      that.units = extractUnique('Units');
+      that.selectedUnit = that.units[0];
+
+      // what fields have values for a given unit?
+      that.fieldsByUnit = _.chain(_.map(that.units, function(unit) {
+        return _.map(_.filter(Object.keys(that.data[0]), function (key) {
+              return ['Year', 'Value', 'Units'].indexOf(key) === -1;
+          }), function(field) {
+          return {
+            unit: unit,
+            field: field,
+            fieldData: !!_.find(_.where(that.data, { Units: unit }), function(d) { return d[field]; })
+          };
+        });
+      })).map(function(r) {
+        return r.length ? {
+          unit: r[0].unit,
+          fields: _.pluck(_.where(r, { fieldData: true }), 'field')
+        } : {};
+      }).value();
+
+      // determine if the fields vary by unit:
+      that.dataHasUnitSpecificFields = !_.every(_.pluck(that.fieldsByUnit, 'fields'), function(fields) {
+        return _.isEqual(_.sortBy(_.pluck(that.fieldsByUnit, 'fields')[0]), _.sortBy(fields));
+      });
+    }
+
     that.fieldItemStates = _.map(_.filter(Object.keys(that.data[0]), function (key) {
         // 'Value' may not be present, but 'Year' and '
         return ['Year', 'Value', 'Units'].indexOf(key) === -1;
@@ -258,19 +296,6 @@ var indicatorModel = function (options) {
       });
     });
 
-    var extractUnique = function(prop) {
-      return _.chain(that.data).pluck(prop).uniq().sortBy(function(year) {
-        return year;
-      }).value();
-    };
-
-    that.years = extractUnique('Year');
-
-    if(that.data[0].hasOwnProperty('Units')) {
-      that.units = extractUnique('Units');
-      that.selectedUnit = that.units[0];
-    }
-
     that.selectableFields = _.pluck(that.fieldItemStates, 'field');
 
     // determine if there are any 'child' fields: those that can
@@ -303,10 +328,17 @@ var indicatorModel = function (options) {
       tension: 0,
       spanGaps: false
     };
+
+    that.footerFields = {
+      'Source': that.dataSource,
+      'Geographical Area': that.geographicalArea,
+      'Unit of Measurement': that.measurementUnit,
+      'Footnote': that.footnote,
+    };
   }());
 
   var headlineColor = '777777';
-  var colors = ['0082e5', '79c3fc', '005da7', 'ff9c18', 'f47d00', 'ad8cf3', '683ec9'];
+  var colors = ['7e984f', '8d73ca', 'aaa533', 'c65b8a', '4aac8d', 'c95f44'];
 
   // allow headline + (2 x others)
   var maxDatasetCount = 2 * colors.length;
@@ -335,12 +367,11 @@ var indicatorModel = function (options) {
 
   this.clearSelectedFields = function() {
     this.selectedFields = [];
-    this.userInteraction = {};
     this.getData();
     this.onFieldsCleared.notify();
   };
 
-  this.updateSelectedFields = function (fields, userInteraction) {
+  this.updateSelectedFields = function (fields) {
     this.selectedFields = fields;
 
     // update parent/child statuses:
@@ -392,7 +423,6 @@ var indicatorModel = function (options) {
     // remove duplicates:
     that.allowedFields = _.uniq(that.allowedFields);
 
-    this.userInteraction = userInteraction;
     this.getData();
     this.onSelectionUpdate.notify({
       selectedFields: fields,
@@ -402,7 +432,12 @@ var indicatorModel = function (options) {
 
   this.updateSelectedUnit = function(selectedUnit) {
     this.selectedUnit = selectedUnit;
-    this.getData();
+    
+    // if fields are dependent on the unit, reset:
+    this.getData({
+      unitsChangeSeries: this.dataHasUnitSpecificFields
+    });
+    
     this.onUnitsSelectedChanged.notify(selectedUnit);
   };
 
@@ -452,10 +487,14 @@ var indicatorModel = function (options) {
     });
   };
 
-  this.getData = function (initial) {
+  this.getData = function(options) {
     // field: 'Grade'
     // values: ['A', 'B']
-    var fields = this.selectedFields,
+    var options = _.defaults(options || {}, {
+        initial: false,
+        unitsChangeSeries: false
+      }),
+      fields = this.selectedFields,
       selectedFieldTypes = _.pluck(fields, 'field'),
       datasets = [],
       that = this,
@@ -471,7 +510,7 @@ var indicatorModel = function (options) {
       getColor = function(datasetIndex) {
 
         // offset if there is no headline data:
-        if(!this.hasHeadline) {
+        if(!that.hasHeadline) {
           datasetIndex += 1;
         }
 
@@ -544,61 +583,6 @@ var indicatorModel = function (options) {
       }
       return matched;
     });
-
-    //}
-/*
-    console.table(matchedData);
-
-    // update statuses:
-    _.each(that.fieldItemStates, function(fieldItemState) {
-      var selectedInfo = _.findWhere(that.selectedFields, { field : fieldItemState.field });
-
-      _.each(fieldItemState.values, function(fieldItemValue) {
-        // nothing selected:
-        if(!that.selectedFields.length) {
-          fieldItemValue.state = 'default';
-        } else {
-          if(selectedInfo && selectedInfo.values.containsValue(fieldItemValue.value)) {
-            fieldItemValue.state = 'selected';
-          } else {
-            // not selected, so is it in the data that we have?
-            var uniqueMatchedFieldValues = _.chain(matchedData).pluck(fieldItemState.field).filter(function(x) { return x; }).uniq().value();
-
-            if(uniqueMatchedFieldValues.containsValue(fieldItemValue.value) && selectedInfo) {
-              fieldItemValue.state = 'possible'; // this field has a selection
-            } else if(uniqueMatchedFieldValues.containsValue(fieldItemValue.value) && !selectedInfo) {
-              fieldItemValue.state = 'default'; // no selections for this field, so set to default
-            } else {
-
-              // if(isSingleValueSelected() && that.selectedFields[0].field === fieldItemState.field) {
-              //   fieldItemState.state = 'possible';
-              // } else {
-               // fieldItemValue.state = 'excluded';
-              // }
-
-              // isSingleValueSelected() &&
-              fieldItemValue.state = that.selectedFields[0].field == fieldItemState.field ? 'possible' : 'excluded';
-              //fieldItemValue.state = 'excluded';
-            }
-          }
-        }
-      });
-    });
-
-    // derive selection state ratios:
-    var fieldSelectionInfo = this.fieldItemStates.map(function(fi) {
-      var maxFieldValueCount = fi.values.length,
-          fieldStates = _.pluck(fi.values, 'state');
-      return {
-        field: fi.field,
-        fieldSelection: {
-          possibleState: (_.filter(fieldStates, function(fv) { return fv === 'possible'; }).length / maxFieldValueCount) * 100,
-          defaultState: (_.filter(fieldStates, function(fv) { return fv === 'default' || fv === 'selected'; }).length / maxFieldValueCount) * 100,
-          excludedState: (_.filter(fieldStates, function(fv) { return fv === 'excluded'; }).length / maxFieldValueCount) * 100
-        }
-      };
-    });
-*/
 
     var fieldSelectionInfo = [];
 
@@ -688,35 +672,44 @@ var indicatorModel = function (options) {
       headlineTable: headlineTable,
       selectionsTable: selectionsTable,
       indicatorId: this.indicatorId,
-      selectedUnit: this.selectedUnit
+      selectedUnit: this.selectedUnit,
+      footerFields: this.footerFields
     });
 
-    if (initial) {
+    if(options.initial || options.unitsChangeSeries) {
 
-      // order the fields based on the edge data, if any:
-      if(this.edgesData.length) {
-        var orderedEdges = _.chain(this.edgesData)
-          .groupBy('From')
-          .map(function(value, key) { return [key].concat(_.pluck(value, 'To')); })
-          .flatten()
-          .value();
+      if(options.initial) {
+        // order the fields based on the edge data, if any:
+        if(this.edgesData.length) {
+          var orderedEdges = _.chain(this.edgesData)
+            .groupBy('From')
+            .map(function(value, key) { return [key].concat(_.pluck(value, 'To')); })
+            .flatten()
+            .value();
 
-        var customOrder = orderedEdges.concat(_.difference(_.pluck(this.fieldItemStates, 'field'), orderedEdges));
+          var customOrder = orderedEdges.concat(_.difference(_.pluck(this.fieldItemStates, 'field'), orderedEdges));
 
-        // now order the fields:
-        this.fieldItemStates = _.sortBy(this.fieldItemStates, function(item) {
-          return customOrder.indexOf(item.field);
+          // now order the fields:
+          this.fieldItemStates = _.sortBy(this.fieldItemStates, function(item) {
+            return customOrder.indexOf(item.field);
+          });
+        }
+
+        this.onUnitsComplete.notify({
+          units: this.units
         });
       }
 
+      // update the series:
       this.onSeriesComplete.notify({
-        series: this.fieldItemStates,
+        series: that.dataHasUnitSpecificFields ? _.filter(that.fieldItemStates, function(fis) {
+          return _.findWhere(that.fieldsByUnit, { unit : that.selectedUnit }).fields.indexOf(fis.field) != -1;
+        }) : this.fieldItemStates,
         allowedFields: this.allowedFields,
         edges: this.edgesData
       });
-      this.onUnitsComplete.notify({
-        units: this.units
-      });
+
+
     } else {
       this.onSeriesSelectedChanged.notify({
         series: this.selectedFields
@@ -724,7 +717,7 @@ var indicatorModel = function (options) {
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if(initial && !this.hasHeadline) {
+    if((options.initial || options.unitsChangeSeries) && !this.hasHeadline) {
       // if there is no initial data, select some:
       this.onNoHeadlineData.notify();
     }
@@ -733,7 +726,9 @@ var indicatorModel = function (options) {
 
 indicatorModel.prototype = {
   initialise: function () {
-    this.getData(true);
+    this.getData({ 
+      initial: true
+    });
   },
   getData: function () {
     this.getData();
@@ -741,21 +736,21 @@ indicatorModel.prototype = {
 };
 
 var indicatorView = function (model, options) {
-
+  
   "use strict";
-
+  
   var view_obj = this;
-
+  
   //this._fieldLimit = 2;
   this._model = model;
-
+  
   this._chartInstance = undefined;
   this._rootElement = options.rootElement;
-
+  
   var chartHeight = screen.height < options.maxChartHeight ? screen.height : options.maxChartHeight;
-
+  
   $('.plot-container', this._rootElement).css('height', chartHeight + 'px');
-
+  
   $(document).ready(function() {
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
       // var target = $(e.target).attr("href"); // activated tab
@@ -764,32 +759,32 @@ var indicatorView = function (model, options) {
       $($.fn.dataTable.tables(true)).DataTable().columns.adjust().draw();
     });
   });
-
+  
   this._model.onDataComplete.attach(function (sender, args) {
-
+    
     if(view_obj._model.showData) {
-
+      
       $('#dataset-size-warning')[args.datasetCountExceedsMax ? 'show' : 'hide']();
-
+      
       if(!view_obj._chartInstance) {
         view_obj.createPlot(args);
       } else {
         view_obj.updatePlot(args);
       }
     }
-
+    
     view_obj.createSelectionsTable(args);
   });
-
+  
   this._model.onNoHeadlineData.attach(function() {
     $('#fields .variable-options :checkbox:eq(0)').trigger('click');
   });
-
-  this._model.onSeriesComplete.attach(function (sender, args) {
+  
+  this._model.onSeriesComplete.attach(function(sender, args) {
     view_obj.initialiseSeries(args);
   });
 
-  this._model.onSeriesSelectedChanged.attach(function (sender, args) {
+  this._model.onSeriesSelectedChanged.attach(function(sender, args) {
     // var selector;
     // if (args.series.length === view_obj._fieldLimit) {
     //   selector = $('#fields input:not(:checked)');
@@ -801,53 +796,53 @@ var indicatorView = function (model, options) {
     //   selector.parent().removeClass('disabled').removeAttr('title');
     // }
   });
-
+  
   this._model.onUnitsComplete.attach(function(sender, args) {
     view_obj.initialiseUnits(args);
   });
-
+  
   this._model.onUnitsSelectedChanged.attach(function(sender, args) {
     // update the plot's y axis label
     // update the data
   });
-
+  
   this._model.onFieldsCleared.attach(function(sender, args) {
     $(view_obj._rootElement).find(':checkbox').prop('checked', false);
     $(view_obj._rootElement).find('#clear').addClass('disabled');
-
+    
     // reset available/unavailable fields
     updateWithSelectedFields();
-
+    
     // #246
     $(view_obj._rootElement).find('.selected').css('width', '0');
     // end of #246
   });
-
+  
   this._model.onSelectionUpdate.attach(function(sender, args) {
     $(view_obj._rootElement).find('#clear')[args.selectedFields.length ? 'removeClass' : 'addClass']('disabled');
-
+    
     // loop through the available fields:
     $('.variable-selector').each(function(index, element) {
       var currentField = $(element).data('field');
-
+      
       // any info?
       var match = _.findWhere(args.selectedFields, { field : currentField });
       var element = $(view_obj._rootElement).find('.variable-selector[data-field="' + currentField + '"]');
       var width = match ? (Number(match.values.length / element.find('.variable-options label').length) * 100) + '%' : '0';
-
+      
       $(element).find('.bar .selected').css('width', width);
-
+      
       // is this an allowed field:
       $(element)[_.contains(args.allowedFields, currentField) ? 'removeClass' : 'addClass']('disallowed');
     });
   });
-
+  
   this._model.onFieldsStatusUpdated.attach(function (sender, args) {
     //console.log('updating field states with: ', args);
-
+    
     // reset:
     $(view_obj._rootElement).find('label').removeClass('selected possible excluded');
-
+    
     _.each(args.data, function(fieldGroup) {
       _.each(fieldGroup.values, function(fieldItem) {
         var element = $(view_obj._rootElement).find(':checkbox[value="' + fieldItem.value + '"][data-field="' + fieldGroup.field + '"]');
@@ -856,11 +851,11 @@ var indicatorView = function (model, options) {
       // Indicate whether the fieldGroup had any data.
       var fieldGroupElement = $(view_obj._rootElement).find('.variable-selector[data-field="' + fieldGroup.field + '"]');
       fieldGroupElement.attr('data-has-data', fieldGroup.hasData);
-
+      
       // Re-sort the items.
       view_obj.sortFieldGroup(fieldGroupElement);
     });
-
+    
     _.each(args.selectionStates, function(ss) {
       // find the appropriate 'bar'
       var element = $(view_obj._rootElement).find('.variable-selector[data-field="' + ss.field + '"]');
@@ -869,29 +864,25 @@ var indicatorView = function (model, options) {
       element.find('.bar .excluded').css('width', ss.fieldSelection.excludedState + '%');
     });
   });
-
-  $(document).click(function(e) {
-    $('.variable-options').hide();
-  });
-
+  
   $(this._rootElement).on('click', '#clear', function() {
     view_obj._model.clearSelectedFields();
   });
-
+  
   $(this._rootElement).on('click', '#fields label', function (e) {
-
+    
     if(!$(this).closest('.variable-options').hasClass('disallowed')) {
       $(this).find(':checkbox').trigger('click');
     }
-
+    
     e.preventDefault();
     e.stopPropagation();
   });
-
+  
   $(this._rootElement).on('change', '#units input', function() {
     view_obj._model.updateSelectedUnit($(this).val());
   });
-
+  
   // generic helper function, used by clear all/select all and individual checkbox changes:
   var updateWithSelectedFields = function() {
     view_obj._model.updateSelectedFields(_.chain(_.map($('#fields input:checked'), function (fieldValue) {
@@ -904,17 +895,13 @@ var indicatorView = function (model, options) {
         field: key,
         values: _.pluck(value, 'value')
       };
-    }).value(), {
-      field: $(this).data('field'),
-      value: $(this).val(),
-      selected: $(this).is(':checked')
-    });
+    }).value());
   }
-
+  
   $(this._rootElement).on('click', '.variable-options button', function(e) {
     var type = $(this).data('type');
     var $options = $(this).closest('.variable-options').find(':checkbox');
-
+    
     // The clear button can clear all checkboxes.
     if (type == 'clear') {
       $options.prop('checked', false);
@@ -923,76 +910,81 @@ var indicatorView = function (model, options) {
     if (type == 'select') {
       $options.parent().not('[data-has-data=false]').find(':checkbox').prop('checked', true)
     }
-
+    
     updateWithSelectedFields();
-
+    
     e.stopPropagation();
   });
-
+  
   $(this._rootElement).on('click', ':checkbox', function(e) {
-
+    
     // don't permit excluded selections:
     if($(this).parent().hasClass('excluded') || $(this).closest('.variable-selector').hasClass('disallowed')) {
       return;
     }
-
+    
     updateWithSelectedFields();
-
+    
     e.stopPropagation();
   });
-
+  
   $(this._rootElement).on('click', '.variable-selector', function(e) {
-
+    
     var options = $(this).find('.variable-options');
     var optionsVisible = options.is(':visible');
-
-    // ensure any others are hidden:
-    $('.variable-options').hide();
-
-    // but reinstate this one:
     $(options)[optionsVisible ? 'hide' : 'show']();
-
+    
     e.stopPropagation();
   });
-
-  this.initialiseSeries = function (args) {
+  
+  this.initialiseSeries = function(args) {
     if(args.series.length) {
       var template = _.template($("#item_template").html());
 
+      if(!$('button#clear').length) {
         $('<button id="clear" class="disabled">Clear selections <i class="fa fa-remove"></i></button>').insertBefore('#fields');
+      }
 
-        $('#fields').html(template({
-            series: args.series,
-            allowedFields: args.allowedFields,
-            edges: args.edges
-        }));
+      $('#fields').html(template({
+        series: args.series,
+        allowedFields: args.allowedFields,
+        edges: args.edges
+      }));
+
+      $(this._rootElement).removeClass('no-series');
+      
     } else {
       $(this._rootElement).addClass('no-series');
     }
   };
-
+  
   this.initialiseUnits = function(args) {
-    var template = _.template($('#units_template').html());
-
+    var template = _.template($('#units_template').html()),
+        units = args.units || [];
+    
     $('#units').html(template({
-      units: args.units || []
+      units: units
     }));
-  };
 
+    if(!units.length) {
+      $(this._rootElement).addClass('no-units');      
+    }
+  };
+  
   this.updatePlot = function(chartInfo) {
     view_obj._chartInstance.data.datasets = chartInfo.datasets;
-
+    
     if(chartInfo.selectedUnit) {
       view_obj._chartInstance.options.scales.yAxes[0].scaleLabel.labelString = chartInfo.selectedUnit;
     }
-
+    
     view_obj._chartInstance.update(1000, true);
   };
-
+  
   this.createPlot = function (chartInfo) {
-
+    
     var that = this;
-
+    
     this._chartInstance = new Chart($(this._rootElement).find('canvas'), {
       type: this._model.graphType,
       data: chartInfo,
@@ -1046,127 +1038,133 @@ var indicatorView = function (model, options) {
         }
       }
     });
-
+    
     Chart.pluginService.register({
       afterDraw: function(chart) {
         var $canvas = $(that._rootElement).find('canvas'),
-            font = '12px Arial',
-            canvas = $canvas.get(0),
-            textRowHeight = 20,
-            ctx = canvas.getContext("2d");
-
-            ctx.font = font;
-            ctx.textAlign = 'left';
-            ctx.textBaseline = 'middle';
-            ctx.fillStyle = '#6e6e6e';
-
-            var getLinesFromText = function(text) {
-              var width = parseInt($canvas.css('width')), //width(),
-                  lines = [],
-                  line = '',
-                  lineTest = '',
-                  words = text.split(' ');
-
-              for (var i = 0, len = words.length; i < len; i++) {
-                lineTest = line + words[i] + ' ';
-
-                // Check total width of line or last word
-                if (ctx.measureText(lineTest).width > width) {
-                  // Record and reset the current line
-                  lines.push(line);
-                  line = words[i] + ' ';
-                } else {
-                  line = lineTest;
-                }
-              }
-
-              // catch left overs:
-              if (line.length > 0) {
-                lines.push(line.trim());
-              }
-
-              return lines;
-            };
-
+        font = '12px Arial',
+        canvas = $canvas.get(0),
+        textRowHeight = 20,
+        ctx = canvas.getContext("2d");
+        
+        ctx.font = font;
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#6e6e6e';
+        
+        var getLinesFromText = function(text) {
+          var width = parseInt($canvas.css('width')), //width(),
+          lines = [],
+          line = '',
+          lineTest = '',
+          words = text.split(' ');
+          
+          for (var i = 0, len = words.length; i < len; i++) {
+            lineTest = line + words[i] + ' ';
+            
+            // Check total width of line or last word
+            if (ctx.measureText(lineTest).width > width) {
+              // Record and reset the current line
+              lines.push(line);
+              line = words[i] + ' ';
+            } else {
+              line = lineTest;
+            }
+          }
+          
+          // catch left overs:
+          if (line.length > 0) {
+            lines.push(line.trim());
+          }
+          
+          return lines;
+        };
+        
         function putTextOutputs(textOutputs, x) {
           var y = $canvas.height() - 10 - ((textOutputs.length - 1) * textRowHeight);
-
+          
           _.each(textOutputs, function(textOutput) {
             ctx.fillText(textOutput, x, y);
             y += textRowHeight;
           });
         }
-
+        
+        // TODO Merge this with the that.footerFields object used by table
         var graphFooterItems = [
           'Source: ' + (that._model.dataSource ? that._model.dataSource : ''),
           'Geographical Area: ' + (that._model.geographicalArea ? that._model.geographicalArea : ''),
           'Unit of Measurement: ' + (that._model.measurementUnit ? that._model.measurementUnit : '')
         ];
-
+        
         if(that._model.footnote) {
           var footnoteRows = getLinesFromText('Footnote: ' + that._model.footnote);
           graphFooterItems = graphFooterItems.concat(footnoteRows);
-
+          
           if(footnoteRows.length > 1) {
             //that._chartInstance.options.layout.padding.bottom += textRowHeight * footnoteRows.length;
             that._chartInstance.resize(parseInt($canvas.css('width')), parseInt($canvas.css('height')) + textRowHeight * footnoteRows.length);
             that._chartInstance.resize();
           }
         }
-
+        
         putTextOutputs(graphFooterItems, 0);
       }
     });
   };
-
+  
   this.toCsv = function (tableData) {
     var lines = [],
     headings = _.map(tableData.headings, function(heading) { return '"' + heading + '"'; });
-
+    
     lines.push(headings.join(','));
-
+    
     _.each(tableData.data, function (dataValues) {
       var line = [];
-
+      
       _.each(headings, function (heading, index) {
         line.push(dataValues[index]);
       });
-
+      
       lines.push(line.join(','));
     });
-
+    
     return lines.join('\n');
   };
-
+  
   var initialiseDataTable = function(el) {
     //if(!$.fn.dataTable.isDataTable($(el).find('table'))) {
-      var datatables_options = options.datatables_options || {
-        paging: false,
-        bInfo: false,
-        searching: false,
-        responsive: false
-      }, table = $(el).find('table');
-
-      // equal width columns:
-      datatables_options.aoColumns = _.map(table.find('th'), function () {
-        return {
-          sWidth: (100 / table.find('th').length) + '%'
-        };
-      });
-      datatables_options.aaSorting = [];
-
-      $(el).find('table').DataTable(datatables_options);
+    var datatables_options = options.datatables_options || {
+      paging: false,
+      bInfo: false,
+      searching: false,
+      responsive: false
+    }, table = $(el).find('table');
+    
+    // equal width columns:
+    datatables_options.aoColumns = _.map(table.find('th'), function () {
+      return {
+        sWidth: (100 / table.find('th').length) + '%'
+      };
+    });
+    datatables_options.aaSorting = [];
+    
+    $(el).find('table').DataTable(datatables_options);
   };
-
+  
   this.createSelectionsTable = function(chartInfo) {
     this.createTable(chartInfo.selectionsTable, chartInfo.indicatorId, '#selectionsTable', true);
-    this.createDownloadButton(chartInfo.selectionsTable, chartInfo.indicatorId, '#selectionsTable');
+    this.createTableFooter(chartInfo.footerFields, '#selectionsTable');
+    this.createDownloadButton(chartInfo.selectionsTable, 'Table', chartInfo.indicatorId, '#selectionsTable');
     this.createSourceButton(chartInfo.indicatorId, '#selectionsTable');
+    // Chart buttons
+    $('#chartSelectionDownload').empty();
+    this.createDownloadButton(chartInfo.selectionsTable, 'Chart', chartInfo.indicatorId, '#chartSelectionDownload');
+    this.createSourceButton(chartInfo.indicatorId, '#chartSelectionDownload');
   };
-
-  this.createDownloadButton = function(table, indicatorId, el) {
+  
+  this.createDownloadButton = function(table, name, indicatorId, el) {
     if(window.Modernizr.blobconstructor) {
-      $(el).append($('<a />').text('Download Table CSV')
+      $(el).append($('<a />').text('Download ' + name + ' CSV')
       .attr({
         'href': URL.createObjectURL(new Blob([this.toCsv(table)], {
           type: 'text/csv'
@@ -1177,22 +1175,32 @@ var indicatorView = function (model, options) {
         'tabindex': 0
       })
       .data('csvdata', this.toCsv(table)));
+    } else {
+      var headlineId = indicatorId.replace("indicator", "headlines");
+      $(el).append($('<a />').text('Download Headline CSV')
+      .attr({
+        'href': '/sdg-indicators/data/headlines/' + headlineId + '.csv',
+        'download': headlineId + '.csv',
+        'title': 'Download headline data as CSV',
+        'class': 'btn btn-primary btn-download',
+        'tabindex': 0
+      }));
     }
   }
-
+  
   this.createSourceButton = function(indicatorId, el) {
     $(el).append($('<a />').text('Download Source CSV')
     .attr({
       'href': '/sdg-indicators/data/' + indicatorId + '.csv',
       'download': indicatorId + '.csv',
-      'title': 'Download Source as CSV',
+      'title': 'Download source data as CSV',
       'class': 'btn btn-primary btn-download',
       'tabindex': 0
     }));
   }
-
+  
   this.createTable = function(table, indicatorId, el) {
-
+    
     options = options || {};
     var that = this,
     csv_path = options.csv_path,
@@ -1202,29 +1210,29 @@ var indicatorView = function (model, options) {
       delimiter: '"'
     },
     table_class = options.table_class || 'table table-hover';
-
+    
     // clear:
     $(el).html('');
-
+    
     if(table && table.data.length) {
       var currentTable = $('<table />').attr({
         'class': /*'table-responsive ' +*/ table_class,
         'width': '100%'
         //'id': currentId
       });
-
+      
       currentTable.append('<caption>' + that._model.chartTitle + '</caption>');
-
+      
       var table_head = '<thead><tr>';
-
+      
       table.headings.forEach(function (heading, index) {
         table_head += '<th' + (!index || heading.toLowerCase() == 'units' ? '': ' class="table-value"') + ' scope="col">' + heading + '</th>';
       });
-
+      
       table_head += '</tr></thead>';
       currentTable.append(table_head);
       currentTable.append('<tbody></tbody>');
-
+      
       table.data.forEach(function (data) {
         var row_html = '<tr>';
         table.headings.forEach(function (heading, index) {
@@ -1233,17 +1241,30 @@ var indicatorView = function (model, options) {
         row_html += '</tr>';
         currentTable.find('tbody').append(row_html);
       });
-
+      
       $(el).append(currentTable);
-
+      
       // initialise data table
       initialiseDataTable(el);
-
+      
     } else {
       $(el).append($('<p />').text('There is no data for this breakdown.'));
     }
   };
-
+  
+  this.createTableFooter = function(footerFields, el) {
+    var footdiv = $('<div />').attr({
+      'id': 'selectionTableFooter',
+      'class': 'table-footer-text'
+    });
+    
+    _.each(footerFields, function(val, key) {
+      if(val) footdiv.append($('<p />').text(key + ': ' + val));
+    });
+    
+    $(el).append(footdiv);
+  };
+  
   this.sortFieldGroup = function(fieldGroupElement) {
     var sortLabels = function(a, b) {
       var aObj = { hasData: $(a).attr('data-has-data'), text: $(a).text() };
@@ -1254,8 +1275,8 @@ var indicatorView = function (model, options) {
       return (aObj.hasData < bObj.hasData) ? 1 : -1;
     };
     fieldGroupElement.find('label')
-      .sort(sortLabels)
-      .appendTo(fieldGroupElement.find('.variable-options'));
+    .sort(sortLabels)
+    .appendTo(fieldGroupElement.find('.variable-options'));
   }
 };
 
@@ -1332,6 +1353,7 @@ var indicatorSearch = function(inputElement, indicatorDataStore) {
               id: result.id,
               title: result.title,
               href: result.href,
+              status: result.status
             };
 
         if(!goal) {
@@ -1414,14 +1436,14 @@ var reportingStatus = function(indicatorDataStore) {
 
           var returnItem = {
             goal_id: dataItem.goal.id,
-            notStartedCount: _.where(dataItem.goal.indicators, { status: 'notstarted' }).length,
+            completeCount: _.where(dataItem.goal.indicators, { status: 'complete' }).length,
             inProgressCount: _.where(dataItem.goal.indicators, { status: 'inprogress' }).length,
-            completeCount: _.where(dataItem.goal.indicators, { status: 'complete' }).length
+            notStartedCount: _.where(dataItem.goal.indicators, { status: 'notstarted' }).length
           };
 
           returnItem.totalCount = returnItem.notStartedCount + returnItem.inProgressCount + returnItem.completeCount;
-          returnItem.counts = [returnItem.notStartedCount, returnItem.inProgressCount, returnItem.completeCount];
-          returnItem.percentages = getPercentages([returnItem.notStartedCount, returnItem.inProgressCount, returnItem.completeCount]);          
+          returnItem.counts = [returnItem.completeCount, returnItem.inProgressCount, returnItem.notStartedCount];
+          returnItem.percentages = getPercentages([returnItem.completeCount, returnItem.inProgressCount, returnItem.notStartedCount]);
           
           return returnItem;
         });    
@@ -1433,9 +1455,9 @@ var reportingStatus = function(indicatorDataStore) {
         var overall = {
           totalCount: _.chain(mappedData).pluck('totalCount').reduce(function(sum, n) { return sum + n; }).value(),
           counts: [
-            getTotalByStatus('notStartedCount'),
+            getTotalByStatus('completeCount'),
             getTotalByStatus('inProgressCount'),
-            getTotalByStatus('completeCount')
+            getTotalByStatus('notStartedCount')
           ]
         };
 
@@ -1455,7 +1477,7 @@ $(function() {
   if($('.container').hasClass('reportingstatus')) {
     var url = $('.container.reportingstatus').attr('data-url'),
         status = new reportingStatus(new indicatorDataStore(url)),
-        types = ['Exploring data sources', 'Statistics in progress', 'Reported online'],
+        types = ['Reported online', 'Statistics in progress', 'Exploring data sources'],
         bindData = function(el, data) {
           $(el).find('.goal-stats span').each(function(index, statEl) {
             var percentage = Math.round(Number(((data.counts[index] / data.totalCount) * 100))) + '%';
@@ -1481,12 +1503,12 @@ $(function() {
 
 $(function() {
 
-  var topLevelSearchLink = $('.top-level a:eq(1)');
+  var topLevelSearchLink = $('.top-level span:eq(1)');
 
   var resetForSmallerViewport = function() {
     topLevelSearchLink.text('Search');
     $('.top-level li').removeClass('active');
-    $('.top-level a').removeClass('open');
+    $('.top-level span').removeClass('open');
   };  
 
   $('.top-level span').click(function() {
@@ -1509,6 +1531,10 @@ $(function() {
       } else {
         $(this).text('Search');
       }
+    } else {
+      // menu click, always hide search:
+      topLevelSearchLink.removeClass('open');
+      topLevelSearchLink.text('Search');
     }
 
     if(!wasVisible) {

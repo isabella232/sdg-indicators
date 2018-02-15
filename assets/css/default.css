@@ -47,6 +47,44 @@ header {
   font-size: 2rem;
   margin-bottom: 1.5rem;
   margin-top: 1.5rem !important; }
+.results .indicator-cards a {
+  color: black;
+  padding: 1rem;
+  display: inline-block;
+  -webkit-transition: background 0.3s;
+  transition: background 0.3s;
+  height: 100%;
+  width: 100%;
+  text-decoration: none; }
+  .results .indicator-cards a:hover {
+    background: transparent; }
+.results .indicator-cards span {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  position: relative;
+  padding: 5px 0; }
+  .results .indicator-cards span.status {
+    color: black;
+    font-weight: normal;
+    border: none;
+    padding: 4px;
+    position: absolute;
+    top: -1px;
+    right: 0;
+    display: inline; }
+.results .indicator-cards .match {
+  display: inline;
+  font-weight: normal;
+  border-bottom: none; }
+.results .indicator-cards a {
+  padding-left: 0;
+  padding-top: 0;
+  padding-bottom: 3.2em; }
+.results .match {
+  display: inline; }
 
 .breadcrumb {
   margin-bottom: 15px; }
@@ -85,9 +123,10 @@ header {
 
 .navbar-brand {
   display: block;
-  padding-right: 0; }
+  width: 75%;
+  max-width: 300px; }
   .navbar-brand img {
-    width: 300px; }
+    width: 100%; }
 
 .navbar {
   margin-bottom: 32px; }
@@ -108,6 +147,28 @@ header {
         background: transparent; }
     .navbar ul.navbar-nav li a:last-child {
       margin-right: 0; }
+    .navbar ul.navbar-nav li.contrast {
+      font-size: 1.3em;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 25px;
+      max-height: 25px;
+      text-align: center;
+      margin-left: 0.5em; }
+      @media only screen and (max-width: 768px) {
+        .navbar ul.navbar-nav li.contrast {
+          display: none; } }
+      .navbar ul.navbar-nav li.contrast a {
+        margin: auto;
+        text-decoration: none; }
+    .navbar ul.navbar-nav li.contrast-default {
+      background: white; }
+      .navbar ul.navbar-nav li.contrast-default a {
+        color: black; }
+    .navbar ul.navbar-nav li.contrast-high {
+      background: black; }
+      .navbar ul.navbar-nav li.contrast-high a {
+        color: yellow; }
   .navbar.navbar-default {
     background: transparent;
     border: none;
@@ -166,13 +227,11 @@ header {
         width: 50%;
         cursor: pointer; }
         .navbar .top-level li.active {
-          background: #3D3D3D; }
+          background: #58595B; }
         .navbar .top-level li span {
           color: #E5E6E7;
           display: block;
           padding: 15px; }
-        .navbar .top-level li:nth-child(2) {
-          border-left: 1px solid white; }
     .navbar .menu-target {
       background: #58595B; }
     .navbar ul.navbar-nav {
@@ -181,21 +240,23 @@ header {
       clear: left;
       margin: 0;
       font-size: 0.938em; }
-      .navbar ul.navbar-nav li a {
-        display: block;
-        background: #58595B;
-        padding: 6px 0 6px;
-        color: #E5E6E7; }
-        .navbar ul.navbar-nav li a:hover {
+      .navbar ul.navbar-nav li {
+        cursor: pointer; }
+        .navbar ul.navbar-nav li a {
+          display: block;
+          background: #58595B;
+          padding: 6px 0 6px;
           color: #E5E6E7; }
-      .navbar ul.navbar-nav li.active a {
-        border: none;
-        color: #fff;
-        font-weight: bold; }
-        .navbar ul.navbar-nav li.active a:hover {
-          color: #fff; }
-      .navbar ul.navbar-nav li:last-child {
-        padding-bottom: 10px; }
+          .navbar ul.navbar-nav li a:hover {
+            color: #E5E6E7; }
+        .navbar ul.navbar-nav li.active a {
+          border: none;
+          color: #fff;
+          font-weight: bold; }
+          .navbar ul.navbar-nav li.active a:hover {
+            color: #fff; }
+        .navbar ul.navbar-nav li:last-child {
+          padding-bottom: 10px; }
     .navbar #search {
       display: none;
       width: 100%;
@@ -453,6 +514,14 @@ h5 + .btn-download {
   @media only screen and (max-width: 480px) {
     .heading h1 {
       font-size: 0.938em; } }
+.heading h2 {
+  font-size: 1.5em; }
+  @media only screen and (min-width: 768px) {
+    .heading h2 {
+      font-size: 1.8em; } }
+  @media only screen and (min-width: 992px) {
+    .heading h2 {
+      font-size: 2.2em; } }
 @media only screen and (max-width: 480px) {
   .heading h3 {
     font-size: 0.813em; } }
@@ -509,9 +578,11 @@ h5 + .btn-download {
       padding: 8px 12px; }
   #main-content h4 {
     margin-bottom: 1.5rem; }
-  #main-content #indicatorData.no-series > .col-md-3 {
+  #main-content #indicatorData.no-series #series-help {
     display: none; }
-  #main-content #indicatorData.no-series > .col-md-9 {
+  #main-content #indicatorData.no-series.no-units > .col-md-3 {
+    display: none; }
+  #main-content #indicatorData.no-series.no-units > .col-md-9 {
     width: 100%; }
   #main-content #toolbar button {
     width: 100%;
@@ -700,6 +771,9 @@ h5 + .btn-download {
   #main-content .plot-container {
     margin-bottom: 4.5rem;
     padding: 10px; }
+  #main-content #chartSelectionDownload {
+    margin-top: -40px;
+    margin-bottom: 10px; }
   #main-content canvas {
     user-select: none;
     -moz-user-select: none;
@@ -739,6 +813,10 @@ h5 + .btn-download {
       top: -1px;
       right: 0;
       display: inline; }
+  #main-content.goal-indicators .indicator-cards .match {
+    display: inline;
+    font-weight: normal;
+    border-bottom: none; }
   #main-content .goal-indicators:after {
     content: "";
     display: table;
@@ -770,6 +848,9 @@ h5 + .btn-download {
         margin-right: 0; }
     #main-content #selectionsTable table th, #main-content #selectionsTable table td {
       white-space: nowrap; }
+    #main-content #selectionsTable .table-footer-text p {
+      font-size: 0.85em;
+      margin: 0 0 5px; }
   #main-content .statuses strong {
     font-weight: normal; }
   #main-content .statuses > div {
@@ -917,9 +998,6 @@ footer {
 .js #headlineTable {
   display: none; }
 
-.no-blobconstructor #headlineTable {
-  display: block; }
-
 .no-js #indicatorData > .col-md-3 {
   display: none; }
 .no-js #indicatorData > .col-md-9 {
@@ -957,9 +1035,11 @@ footer {
   border: 0; }
 
 #accessibility-nav {
-  display: flex;
-  position: relative;
-  padding-top: 10px; }
+  width: 25%;
+  padding-top: 10px;
+  padding-right: 20px;
+  float: right;
+  text-align: right; }
   #accessibility-nav li {
     display: inline-block;
     list-style: none; }
@@ -970,7 +1050,8 @@ footer {
       width: 25px;
       max-height: 25px;
       text-align: center;
-      margin: auto 1.3em auto 0; }
+      margin: 0.25em;
+      margin-top: 0.1em; }
       #accessibility-nav li.contrast a {
         margin: auto;
         text-decoration: none; }
@@ -986,6 +1067,36 @@ footer {
 /* example stuff */
 body.contrast-high {
   background-color: black; }
+  body.contrast-high .table {
+    background: black; }
+  body.contrast-high .btn {
+    background: white !important;
+    color: black !important; }
+    body.contrast-high .btn:hover {
+      background: yellow !important; }
+    body.contrast-high .btn:focus {
+      background: yellow !important; }
+  body.contrast-high div#units {
+    color: white; }
+  body.contrast-high .nav-tabs {
+    border-color: yellow; }
+  body.contrast-high #main-content #fields .bar .selected {
+    background-color: white; }
+  body.contrast-high #main-content #fields .variable-selector .variable-hint {
+    color: white; }
+  body.contrast-high #main-content .nav-tabs .nav-item.active a {
+    background: yellow;
+    color: black;
+    border-color: yellow; }
+  body.contrast-high a.nav-link:focus {
+    background: white;
+    color: black; }
+  body.contrast-high caption {
+    color: white; }
+  body.contrast-high .table-hover tbody tr:hover {
+    background: yellow; }
+    body.contrast-high .table-hover tbody tr:hover td {
+      color: black; }
   body.contrast-high .container, body.contrast-high #main-content, body.contrast-high header, body.contrast-high footer, body.contrast-high #disclaimer, body.contrast-high .heading {
     background: black;
     border-color: black; }
@@ -997,12 +1108,14 @@ body.contrast-high {
     color: black !important; }
   body.contrast-high .navbar li a {
     color: white; }
-    body.contrast-high .navbar li a:hover {
+    body.contrast-high .navbar li a:hover, body.contrast-high .navbar li a:focus {
       color: yellow; }
   body.contrast-high .navbar li.active a {
     color: yellow;
     border-color: yellow; }
     body.contrast-high .navbar li.active a:hover {
+      color: yellow; }
+    body.contrast-high .navbar li.active a:focus {
       color: yellow; }
   body.contrast-high .goal-indicators div span {
     border-color: white !important;
@@ -1014,7 +1127,10 @@ body.contrast-high {
   body.contrast-high #main-content #fields label {
     background: black;
     color: white; }
-    body.contrast-high #main-content #fields label:hover, body.contrast-high #main-content #fields label:focus {
+    body.contrast-high #main-content #fields label:hover {
+      background: white;
+      color: black; }
+    body.contrast-high #main-content #fields label:focus {
       background: white;
       color: black; }
   body.contrast-high #toolbar button {

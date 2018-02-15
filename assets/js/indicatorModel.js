@@ -38,12 +38,50 @@ var indicatorModel = function (options) {
   this.selectedFields = [];
   this.allowedFields = [];
   this.selectedUnit = undefined;
+  this.fieldsByUnit = undefined;
+  this.dataHasUnitSpecificFields = false;
   this.fieldValueStatuses = [];
-  this.userInteraction = {};
   this.validParentsByChild = {};
 
   // initialise the field information, unique fields and unique values for each field:
   (function initialise() {
+
+    var extractUnique = function(prop) {
+      return _.chain(that.data).pluck(prop).uniq().sortBy(function(year) {
+        return year;
+      }).value();
+    };
+
+    that.years = extractUnique('Year');
+
+    if(that.data[0].hasOwnProperty('Units')) {
+      that.units = extractUnique('Units');
+      that.selectedUnit = that.units[0];
+
+      // what fields have values for a given unit?
+      that.fieldsByUnit = _.chain(_.map(that.units, function(unit) {
+        return _.map(_.filter(Object.keys(that.data[0]), function (key) {
+              return ['Year', 'Value', 'Units'].indexOf(key) === -1;
+          }), function(field) {
+          return {
+            unit: unit,
+            field: field,
+            fieldData: !!_.find(_.where(that.data, { Units: unit }), function(d) { return d[field]; })
+          };
+        });
+      })).map(function(r) {
+        return r.length ? {
+          unit: r[0].unit,
+          fields: _.pluck(_.where(r, { fieldData: true }), 'field')
+        } : {};
+      }).value();
+
+      // determine if the fields vary by unit:
+      that.dataHasUnitSpecificFields = !_.every(_.pluck(that.fieldsByUnit, 'fields'), function(fields) {
+        return _.isEqual(_.sortBy(_.pluck(that.fieldsByUnit, 'fields')[0]), _.sortBy(fields));
+      });
+    }
+
     that.fieldItemStates = _.map(_.filter(Object.keys(that.data[0]), function (key) {
         // 'Value' may not be present, but 'Year' and '
         return ['Year', 'Value', 'Units'].indexOf(key) === -1;
@@ -83,19 +121,6 @@ var indicatorModel = function (options) {
       });
     });
 
-    var extractUnique = function(prop) {
-      return _.chain(that.data).pluck(prop).uniq().sortBy(function(year) {
-        return year;
-      }).value();
-    };
-
-    that.years = extractUnique('Year');
-
-    if(that.data[0].hasOwnProperty('Units')) {
-      that.units = extractUnique('Units');
-      that.selectedUnit = that.units[0];
-    }
-
     that.selectableFields = _.pluck(that.fieldItemStates, 'field');
 
     // determine if there are any 'child' fields: those that can
@@ -128,10 +153,17 @@ var indicatorModel = function (options) {
       tension: 0,
       spanGaps: false
     };
+
+    that.footerFields = {
+      'Source': that.dataSource,
+      'Geographical Area': that.geographicalArea,
+      'Unit of Measurement': that.measurementUnit,
+      'Footnote': that.footnote,
+    };
   }());
 
   var headlineColor = '777777';
-  var colors = ['0082e5', '79c3fc', '005da7', 'ff9c18', 'f47d00', 'ad8cf3', '683ec9'];
+  var colors = ['7e984f', '8d73ca', 'aaa533', 'c65b8a', '4aac8d', 'c95f44'];
 
   // allow headline + (2 x others)
   var maxDatasetCount = 2 * colors.length;
@@ -160,12 +192,11 @@ var indicatorModel = function (options) {
 
   this.clearSelectedFields = function() {
     this.selectedFields = [];
-    this.userInteraction = {};
     this.getData();
     this.onFieldsCleared.notify();
   };
 
-  this.updateSelectedFields = function (fields, userInteraction) {
+  this.updateSelectedFields = function (fields) {
     this.selectedFields = fields;
 
     // update parent/child statuses:
@@ -217,7 +248,6 @@ var indicatorModel = function (options) {
     // remove duplicates:
     that.allowedFields = _.uniq(that.allowedFields);
 
-    this.userInteraction = userInteraction;
     this.getData();
     this.onSelectionUpdate.notify({
       selectedFields: fields,
@@ -227,7 +257,12 @@ var indicatorModel = function (options) {
 
   this.updateSelectedUnit = function(selectedUnit) {
     this.selectedUnit = selectedUnit;
-    this.getData();
+    
+    // if fields are dependent on the unit, reset:
+    this.getData({
+      unitsChangeSeries: this.dataHasUnitSpecificFields
+    });
+    
     this.onUnitsSelectedChanged.notify(selectedUnit);
   };
 
@@ -277,10 +312,14 @@ var indicatorModel = function (options) {
     });
   };
 
-  this.getData = function (initial) {
+  this.getData = function(options) {
     // field: 'Grade'
     // values: ['A', 'B']
-    var fields = this.selectedFields,
+    var options = _.defaults(options || {}, {
+        initial: false,
+        unitsChangeSeries: false
+      }),
+      fields = this.selectedFields,
       selectedFieldTypes = _.pluck(fields, 'field'),
       datasets = [],
       that = this,
@@ -296,7 +335,7 @@ var indicatorModel = function (options) {
       getColor = function(datasetIndex) {
 
         // offset if there is no headline data:
-        if(!this.hasHeadline) {
+        if(!that.hasHeadline) {
           datasetIndex += 1;
         }
 
@@ -369,61 +408,6 @@ var indicatorModel = function (options) {
       }
       return matched;
     });
-
-    //}
-/*
-    console.table(matchedData);
-
-    // update statuses:
-    _.each(that.fieldItemStates, function(fieldItemState) {
-      var selectedInfo = _.findWhere(that.selectedFields, { field : fieldItemState.field });
-
-      _.each(fieldItemState.values, function(fieldItemValue) {
-        // nothing selected:
-        if(!that.selectedFields.length) {
-          fieldItemValue.state = 'default';
-        } else {
-          if(selectedInfo && selectedInfo.values.containsValue(fieldItemValue.value)) {
-            fieldItemValue.state = 'selected';
-          } else {
-            // not selected, so is it in the data that we have?
-            var uniqueMatchedFieldValues = _.chain(matchedData).pluck(fieldItemState.field).filter(function(x) { return x; }).uniq().value();
-
-            if(uniqueMatchedFieldValues.containsValue(fieldItemValue.value) && selectedInfo) {
-              fieldItemValue.state = 'possible'; // this field has a selection
-            } else if(uniqueMatchedFieldValues.containsValue(fieldItemValue.value) && !selectedInfo) {
-              fieldItemValue.state = 'default'; // no selections for this field, so set to default
-            } else {
-
-              // if(isSingleValueSelected() && that.selectedFields[0].field === fieldItemState.field) {
-              //   fieldItemState.state = 'possible';
-              // } else {
-               // fieldItemValue.state = 'excluded';
-              // }
-
-              // isSingleValueSelected() &&
-              fieldItemValue.state = that.selectedFields[0].field == fieldItemState.field ? 'possible' : 'excluded';
-              //fieldItemValue.state = 'excluded';
-            }
-          }
-        }
-      });
-    });
-
-    // derive selection state ratios:
-    var fieldSelectionInfo = this.fieldItemStates.map(function(fi) {
-      var maxFieldValueCount = fi.values.length,
-          fieldStates = _.pluck(fi.values, 'state');
-      return {
-        field: fi.field,
-        fieldSelection: {
-          possibleState: (_.filter(fieldStates, function(fv) { return fv === 'possible'; }).length / maxFieldValueCount) * 100,
-          defaultState: (_.filter(fieldStates, function(fv) { return fv === 'default' || fv === 'selected'; }).length / maxFieldValueCount) * 100,
-          excludedState: (_.filter(fieldStates, function(fv) { return fv === 'excluded'; }).length / maxFieldValueCount) * 100
-        }
-      };
-    });
-*/
 
     var fieldSelectionInfo = [];
 
@@ -513,35 +497,44 @@ var indicatorModel = function (options) {
       headlineTable: headlineTable,
       selectionsTable: selectionsTable,
       indicatorId: this.indicatorId,
-      selectedUnit: this.selectedUnit
+      selectedUnit: this.selectedUnit,
+      footerFields: this.footerFields
     });
 
-    if (initial) {
+    if(options.initial || options.unitsChangeSeries) {
 
-      // order the fields based on the edge data, if any:
-      if(this.edgesData.length) {
-        var orderedEdges = _.chain(this.edgesData)
-          .groupBy('From')
-          .map(function(value, key) { return [key].concat(_.pluck(value, 'To')); })
-          .flatten()
-          .value();
+      if(options.initial) {
+        // order the fields based on the edge data, if any:
+        if(this.edgesData.length) {
+          var orderedEdges = _.chain(this.edgesData)
+            .groupBy('From')
+            .map(function(value, key) { return [key].concat(_.pluck(value, 'To')); })
+            .flatten()
+            .value();
 
-        var customOrder = orderedEdges.concat(_.difference(_.pluck(this.fieldItemStates, 'field'), orderedEdges));
+          var customOrder = orderedEdges.concat(_.difference(_.pluck(this.fieldItemStates, 'field'), orderedEdges));
 
-        // now order the fields:
-        this.fieldItemStates = _.sortBy(this.fieldItemStates, function(item) {
-          return customOrder.indexOf(item.field);
+          // now order the fields:
+          this.fieldItemStates = _.sortBy(this.fieldItemStates, function(item) {
+            return customOrder.indexOf(item.field);
+          });
+        }
+
+        this.onUnitsComplete.notify({
+          units: this.units
         });
       }
 
+      // update the series:
       this.onSeriesComplete.notify({
-        series: this.fieldItemStates,
+        series: that.dataHasUnitSpecificFields ? _.filter(that.fieldItemStates, function(fis) {
+          return _.findWhere(that.fieldsByUnit, { unit : that.selectedUnit }).fields.indexOf(fis.field) != -1;
+        }) : this.fieldItemStates,
         allowedFields: this.allowedFields,
         edges: this.edgesData
       });
-      this.onUnitsComplete.notify({
-        units: this.units
-      });
+
+
     } else {
       this.onSeriesSelectedChanged.notify({
         series: this.selectedFields
@@ -549,7 +542,7 @@ var indicatorModel = function (options) {
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if(initial && !this.hasHeadline) {
+    if((options.initial || options.unitsChangeSeries) && !this.hasHeadline) {
       // if there is no initial data, select some:
       this.onNoHeadlineData.notify();
     }
@@ -558,7 +551,9 @@ var indicatorModel = function (options) {
 
 indicatorModel.prototype = {
   initialise: function () {
-    this.getData(true);
+    this.getData({ 
+      initial: true
+    });
   },
   getData: function () {
     this.getData();

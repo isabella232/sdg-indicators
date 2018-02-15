@@ -17,7 +17,6 @@
         <title>
         Indicator 3.5.2 - Goal 3 - Good Health and Well-being
         </title>
-        <!-- <meta property="og:title" content="U.S. Data Federation"> -->
         <meta name="description" content="">
         <meta property="og:description" content="">
         
@@ -44,7 +43,7 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.3/css/fixedColumns.dataTables.min.css">
-        <link rel="stylesheet" href="/sdg-indicators/assets/css/default.css?v=20171128171941">
+        <link rel="stylesheet" href="/sdg-indicators/assets/css/default.css?v=20180215143831">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
     </head>
 <body>
@@ -63,13 +62,13 @@
 <header role="banner">
   <div class="container">
 
-    <div class='col-xs-12'>
-      <ul id='accessibility-nav'></ul>
-    </div>
-
     <a class="navbar-brand" href="/sdg-indicators/" id="home">
       <img src="/sdg-indicators/assets/img/SDG_logo.png" alt="Sustainable Development Goals - 17 Goals to Transform our World" />
     </a>
+
+  <div class='hidden visible-xs float-right'>
+    <ul id='accessibility-nav' class='contrast-switcher'></ul>
+  </div>
 
     <nav class="navbar navbar-default" id="main-nav">
 
@@ -78,7 +77,7 @@
         <li><span data-target="search">Search</span></li>
       </ul>
 
-      <ul class="nav navbar-nav menu-target" id="menu">
+      <ul class="nav navbar-nav menu-target contrast-switcher" id="menu">
         <li class="nav-link active" >
           <a href="/sdg-indicators/">Goals</a>
         </li>
@@ -146,7 +145,7 @@
   <% if(units.length) { %>
     <h5>Units type</h5>
     <% _.each(units, function(unitsItem, index) { %>
-      <label><input type="radio" name="unit" value="<%=unitsItem%>" <% if(!index) { %>checked="checked"<% } %> /> <%=unitsItem%></label>
+      <label><input type="radio" name="unit" value="<%=unitsItem%>" tabindex=0 <% if(!index) { %>checked="checked"<% } %> /> <%=unitsItem%></label>
     <% }); %>
   <% } %>
 </script>
@@ -214,16 +213,19 @@
   
   <div class="row" id="indicatorData" data-indicatordata='[{"Year":"2015","Beverage":null,"Value":"10.66"},{"Year":"2014","Beverage":null,"Value":"10.37"},{"Year":"2013","Beverage":null,"Value":"10.32"},{"Year":"2012","Beverage":null,"Value":"10.42"},{"Year":"2011","Beverage":null,"Value":"10.68"},{"Year":"2010","Beverage":null,"Value":"10.88"},{"Year":"2009","Beverage":null,"Value":"10.79"},{"Year":"2008","Beverage":null,"Value":"11.47"},{"Year":"2007","Beverage":null,"Value":"11.84"},{"Year":"2006","Beverage":null,"Value":"11.61"},{"Year":"2005","Beverage":null,"Value":"12.05"},{"Year":"2004","Beverage":null,"Value":"12.22"},{"Year":"2003","Beverage":null,"Value":"11.85"},{"Year":"2002","Beverage":null,"Value":"11.44"},{"Year":"2001","Beverage":null,"Value":"10.91"},{"Year":"2000","Beverage":null,"Value":"10.59"},{"Year":"2015","Beverage":"Beer","Value":"3.49"},{"Year":"2014","Beverage":"Beer","Value":"3.48"},{"Year":"2013","Beverage":"Beer","Value":"3.38"},{"Year":"2012","Beverage":"Beer","Value":"3.46"},{"Year":"2011","Beverage":"Beer","Value":"3.65"},{"Year":"2010","Beverage":"Beer","Value":"3.76"},{"Year":"2009","Beverage":"Beer","Value":"3.84"},{"Year":"2008","Beverage":"Beer","Value":"4.22"},{"Year":"2007","Beverage":"Beer","Value":"4.45"},{"Year":"2006","Beverage":"Beer","Value":"4.7"},{"Year":"2005","Beverage":"Beer","Value":"4.85"},{"Year":"2004","Beverage":"Beer","Value":"5.09"},{"Year":"2003","Beverage":"Beer","Value":"5.16"},{"Year":"2002","Beverage":"Beer","Value":"5.11"},{"Year":"2001","Beverage":"Beer","Value":"5.06"},{"Year":"2000","Beverage":"Beer","Value":"4.98"},{"Year":"2015","Beverage":"Wine","Value":"4.17"},{"Year":"2014","Beverage":"Wine","Value":"4.06"},{"Year":"2013","Beverage":"Wine","Value":"4.03"},{"Year":"2012","Beverage":"Wine","Value":"3.96"},{"Year":"2011","Beverage":"Wine","Value":"3.95"},{"Year":"2010","Beverage":"Wine","Value":"3.96"},{"Year":"2009","Beverage":"Wine","Value":"3.87"},{"Year":"2008","Beverage":"Wine","Value":"4.13"},{"Year":"2007","Beverage":"Wine","Value":"4.24"},{"Year":"2006","Beverage":"Wine","Value":"3.9"},{"Year":"2005","Beverage":"Wine","Value":"4.1"},{"Year":"2004","Beverage":"Wine","Value":"3.98"},{"Year":"2003","Beverage":"Wine","Value":"3.65"},{"Year":"2002","Beverage":"Wine","Value":"3.4"},{"Year":"2001","Beverage":"Wine","Value":"3.22"},{"Year":"2000","Beverage":"Wine","Value":"3.02"},{"Year":"2015","Beverage":"Spirits","Value":"2.27"},{"Year":"2014","Beverage":"Spirits","Value":"2.07"},{"Year":"2013","Beverage":"Spirits","Value":"2.09"},{"Year":"2012","Beverage":"Spirits","Value":"2.16"},{"Year":"2011","Beverage":"Spirits","Value":"2.17"},{"Year":"2010","Beverage":"Spirits","Value":"2.25"},{"Year":"2009","Beverage":"Spirits","Value":"2.16"},{"Year":"2008","Beverage":"Spirits","Value":"2.28"},{"Year":"2007","Beverage":"Spirits","Value":"2.35"},{"Year":"2006","Beverage":"Spirits","Value":"2.25"},{"Year":"2005","Beverage":"Spirits","Value":"2.45"},{"Year":"2004","Beverage":"Spirits","Value":"2.51"},{"Year":"2003","Beverage":"Spirits","Value":"2.45"},{"Year":"2002","Beverage":"Spirits","Value":"2.32"},{"Year":"2001","Beverage":"Spirits","Value":"2.03"},{"Year":"2000","Beverage":"Spirits","Value":"1.96"},{"Year":"2015","Beverage":"Other alcoholic beverages","Value":"0.73"},{"Year":"2014","Beverage":"Other alcoholic beverages","Value":"0.76"},{"Year":"2013","Beverage":"Other alcoholic beverages","Value":"0.83"},{"Year":"2012","Beverage":"Other alcoholic beverages","Value":"0.84"},{"Year":"2011","Beverage":"Other alcoholic beverages","Value":"0.9"},{"Year":"2010","Beverage":"Other alcoholic beverages","Value":"0.91"},{"Year":"2009","Beverage":"Other alcoholic beverages","Value":"0.92"},{"Year":"2008","Beverage":"Other alcoholic beverages","Value":"0.83"},{"Year":"2007","Beverage":"Other alcoholic beverages","Value":"0.8"},{"Year":"2006","Beverage":"Other alcoholic beverages","Value":"0.75"},{"Year":"2005","Beverage":"Other alcoholic beverages","Value":"0.65"},{"Year":"2004","Beverage":"Other alcoholic beverages","Value":"0.62"},{"Year":"2003","Beverage":"Other alcoholic beverages","Value":"0.6"},{"Year":"2002","Beverage":"Other alcoholic beverages","Value":"0.61"},{"Year":"2001","Beverage":"Other alcoholic beverages","Value":"0.61"},{"Year":"2000","Beverage":"Other alcoholic beverages","Value":"0.63"}]' data-indicatorid='indicator_3-5-2' data-country="United Kingdom"
   data-edgesdata='[]' data-charttitle="Alcohol consumption per capita in litres of pure alcohol" data-measurementunit="Litres" data-datasource="World Health Organization (WHO)" data-geographicalarea="United Kingdom" data-footnote="" data-showdata="true" data-graphtype="line">
-  
-  <div class="col-md-3">
-    <div id="toolbar">
-      <h4>Sub-categories</h4>
-      <p>Choose categories from the dropdowns below to see different breakdowns of the data. Some will not be available until a higher level is chosen.</p>
-      <div id="fields"></div>
+    
+    <div class="col-md-3">
+      <div id="toolbar">
+        <span id="series-help">
+          <h4>Sub-categories</h4>
+          <p>Choose categories from the dropdowns below to see different breakdowns of the data. Some will not be available until a higher level is chosen.</p>
+        </span>
+        <p>Click on the legend to remove individual lines from the chart.</p>
+        <div id="fields"></div>
+      </div>
+      <div id="units"></div>
     </div>
-    <div id="units"></div>
-  </div>
-  <div class="col-md-9">
+    <div class="col-md-9">
     
       
       
@@ -458,7 +460,7 @@
     <p>Geographical Area: United Kingdom</p>
     
     
-    <p>Units of Measure: Litres</p>
+    <p>Unit of Measurement: Litres</p>
     
     
   </div>
@@ -494,14 +496,14 @@
         
 <canvas></canvas>
     </div>
+
+    <div id="chartSelectionDownload"></div>    
     
 
-      
+
           </div>
           <div role="tabpanel" class="tab-pane" id="tableview">
-            <div id="selectionsTable">
-              
-            </div>
+            <div id="selectionsTable"></div>
           </div>
         </div>
         
@@ -513,7 +515,10 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
           <li role="presentation" class="nav-item active">
-            <a class="nav-link" data-toggle="tab" href="#metadata" aria-controls="metadata" role="tab">Metadata</a>
+            <a class="nav-link" data-toggle="tab" href="#metadata" aria-controls="metadata" role="tab">National Metadata</a>
+          </li>
+          <li role="presentation" class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#globalmetadata" aria-controls="globalmetadata" role="tab">Global Metadata</a>
           </li>
           <li role="presentation" class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#sources" aria-controls="sources" role="tab">Sources</a>
@@ -529,8 +534,8 @@
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane active" id="metadata">
             <!-- National Metadata -->
-            <div class="collapsible expanded" tabindex="0">
-              <h3>National Metadata<span> (Collapse)</span></h3>
+            <div > <!-- formerly class="collapsible expanded" -->
+              <h3 tabindex='0'>National Metadata</h3>
               <article>
                 <p>This table provides metadata for the actual indicator available from UK statistics closest to the corresponding global
                   SDG indicator. Please note that even when the global SDG indicator is fully available from UK statistics, this table
@@ -808,13 +813,13 @@
   
 </table>
 
-                </article>
-              </div>
-              <!-- Method of Computation -->
-              <div class="collapsible collapsed">
-                <h3>How the UK Indicator is Calculated<span> (Expand)</span></h3>
-                <article>
-                  <table class="table table-hover">
+              </article>
+            </div>
+            <!-- Method of Computation -->
+            <div > <!-- formerly class="collapsible collapsed" -->
+              <h3 tabindex='0'>How the UK Indicator is Calculated</h3>
+              <article>
+                <table class="table table-hover">
   
     
   
@@ -873,7 +878,7 @@
     
       
       <tr>
-        <th scope="row">Units of Measure </th>
+        <th scope="row">Unit of Measurement </th>
         <td>
           
             Litres
@@ -1021,14 +1026,16 @@
   
 </table>
 
-                </article>
-              </div>
-              <!-- Global Metadata -->
-              <div class="collapsible collapsed">
-                <h3>Global Metadata<span> (Expand)</span></h3>
-                <article>
-                  <p>This table provides information on metadata for SDG indicators as defined by the UN Statistical Commission. <a href="https://unstats.un.org/sdgs/metadata/">Complete global metadata</a> is provided by the UN Statistics Division.</p>
-                  <table class="table table-hover">
+              </article>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="globalmetadata">
+            <!-- Global Metadata -->
+            <div> <!-- formerly <div class="collapsible expanded"> -->
+              <h3 tabindex='0'>Global Metadata</h3>
+              <article>
+                <p>This table provides information on metadata for SDG indicators as defined by the UN Statistical Commission. <a href="https://unstats.un.org/sdgs/metadata/">Complete global metadata</a> is provided by the UN Statistics Division.</p>
+                <table class="table table-hover">
   
     
   
@@ -1313,11 +1320,11 @@
   
 </table>
 
-                </article>
-              </div>
+              </article>
             </div>
-            <div role="tabpanel" class="tab-pane" id="sources">
-              <!-- Count the non-empty sources (up to 5) -->
+          </div>
+          <div role="tabpanel" class="tab-pane" id="sources">
+            <!-- Count the non-empty sources (up to 5) -->
 
 
 
@@ -1608,29 +1615,30 @@
   </div>
 
 
-            </div>
-            
-            <div role="tabpanel" class="tab-pane" id="edit">
-              <div class="edit-container">
-                <a class="btn btn-primary" href="http://prose.io/#datasciencecampus/sdg-indicators/edit/develop/data/indicator_3-5-2.csv">Edit Data</a>
-                <a class="btn btn-primary" href="http://prose.io/#datasciencecampus/sdg-indicators/edit/develop/_indicators/3-5-2.md">Edit Metadata</a>
-              </div>
-            </div>
-            
           </div>
-        </section>
-      </div>
+          
+          <div role="tabpanel" class="tab-pane" id="edit">
+            <div class="edit-container">
+              <a class="btn btn-primary" href="http://prose.io/#datasciencecampus/sdg-indicators/edit/develop/data/indicator_3-5-2.csv">Edit Data</a>
+              <a class="btn btn-primary" href="http://prose.io/#datasciencecampus/sdg-indicators/edit/develop/_indicators/3-5-2.md">Edit Metadata</a>
+            </div>
+          </div>
+          
+        </div>
+      </section>
     </div>
   </div>
-  <footer role="contentinfo">
+</div>
+
+<footer role="contentinfo">
   <div class="container">
     <div class="row">
-      <div class="col-xs-7">
+      <div class="col-xs-9">
         Contact us at
-        <a href="mailto:sustainabledevelopment@ons.gov.uk">sustainabledevelopment@ons.gov.uk</a>.
+        <a href="mailto:sustainabledevelopment@ons.gov.uk">sustainabledevelopment@ons.gov.uk</a> | <a class="twitter-follow-button" href="https://twitter.com/StatsClaudie?ref_src=twsrc%5Etfw" data-show-count="false">@StatsClaudie</a>
       </div>
-      <div class="col-xs-5 text-right">
-        <a href="/sdg-indicators/faq/">Frequently Asked Questions</a>
+      <div class="col-xs-3 text-right">
+        <a href="/sdg-indicators/faq/">FAQs</a> | <a href="/sdg-indicators/about/cookies-and-privacy/">Cookies</a>
       </div>
     </div>
   </div>
@@ -1661,30 +1669,12 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
 <script type="text/javascript"> window.loop11_key = "0104054b3b56d396b42e668dfe096cee161454a8"; </script>
 <script src="//cdn.loop11.com/my/loop11.js" type="text/javascript" async="async"></script>
-<script src='/sdg-indicators/assets/js/sdg.js?v=20171128171941'></script>
+<script src='/sdg-indicators/assets/js/sdg.js?v=20180215143831'></script>
 <script src="/sdg-indicators/assets/js/lib/classList.js"></script>
 <script src="/sdg-indicators/assets/js/lib/modernizr-custom.js"></script>
 <script src="//cdn.jsdelivr.net/bluebird/3.5.0/bluebird.min.js"></script>
 <script>
 $(function() {
-      $('#metadata .collapsible h3').click(function() {
-      var $container = $(this).closest('div'),
-          $article = $(this).next('article'),
-          $span = $(this).find('span');
-
-      $article.slideToggle(function() {
-        if($container.hasClass('expanded')) {
-          $container.removeClass('expanded');
-          $container.addClass('collapsed');
-          $span.html(' (Expand)');
-        } else {
-          $container.removeClass('collapsed');
-          $container.addClass('expanded');
-          $span.html(' (Collapse)');
-        }
-      });
-    });
-
     if($('#indicatorData').length) {
       var domData = $('#indicatorData').data();
 

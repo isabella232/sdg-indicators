@@ -17,7 +17,6 @@
         <title>
         Indicator 11.c.1 - Goal 11 - Sustainable Cities &amp; Communities
         </title>
-        <!-- <meta property="og:title" content="U.S. Data Federation"> -->
         <meta name="description" content="">
         <meta property="og:description" content="">
         
@@ -44,7 +43,7 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.3/css/fixedColumns.dataTables.min.css">
-        <link rel="stylesheet" href="/sdg-indicators/assets/css/default.css?v=20171128171941">
+        <link rel="stylesheet" href="/sdg-indicators/assets/css/default.css?v=20180215143831">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
     </head>
 <body>
@@ -63,13 +62,13 @@
 <header role="banner">
   <div class="container">
 
-    <div class='col-xs-12'>
-      <ul id='accessibility-nav'></ul>
-    </div>
-
     <a class="navbar-brand" href="/sdg-indicators/" id="home">
       <img src="/sdg-indicators/assets/img/SDG_logo.png" alt="Sustainable Development Goals - 17 Goals to Transform our World" />
     </a>
+
+  <div class='hidden visible-xs float-right'>
+    <ul id='accessibility-nav' class='contrast-switcher'></ul>
+  </div>
 
     <nav class="navbar navbar-default" id="main-nav">
 
@@ -78,7 +77,7 @@
         <li><span data-target="search">Search</span></li>
       </ul>
 
-      <ul class="nav navbar-nav menu-target" id="menu">
+      <ul class="nav navbar-nav menu-target contrast-switcher" id="menu">
         <li class="nav-link active" >
           <a href="/sdg-indicators/">Goals</a>
         </li>
@@ -146,7 +145,7 @@
   <% if(units.length) { %>
     <h5>Units type</h5>
     <% _.each(units, function(unitsItem, index) { %>
-      <label><input type="radio" name="unit" value="<%=unitsItem%>" <% if(!index) { %>checked="checked"<% } %> /> <%=unitsItem%></label>
+      <label><input type="radio" name="unit" value="<%=unitsItem%>" tabindex=0 <% if(!index) { %>checked="checked"<% } %> /> <%=unitsItem%></label>
     <% }); %>
   <% } %>
 </script>
@@ -214,16 +213,19 @@
   
   <div class="row" id="indicatorData" data-indicatordata='[{"Year":"2009","Flow of official development assistance (ODA)":"Bilateral","Aid description (CRS code)":null,"Value":"18777.05"},{"Year":"2009","Flow of official development assistance (ODA)":"Bilateral","Aid description (CRS code)":"Construction policy and administrative management (32310)","Value":"354.69"},{"Year":"2009","Flow of official development assistance (ODA)":"Bilateral","Aid description (CRS code)":"Urban development and management (43030)","Value":"18422.36"},{"Year":"2010","Flow of official development assistance (ODA)":null,"Aid description (CRS code)":null,"Value":"57244.59"},{"Year":"2010","Flow of official development assistance (ODA)":null,"Aid description (CRS code)":"Construction policy and administrative management (32310)","Value":"999.93"},{"Year":"2010","Flow of official development assistance (ODA)":null,"Aid description (CRS code)":"Urban development and management (43030)","Value":"56244.66"},{"Year":"2010","Flow of official development assistance (ODA)":"Bilateral","Aid description (CRS code)":null,"Value":"35421.8"},{"Year":"2010","Flow of official development assistance (ODA)":"Bilateral","Aid description (CRS code)":"Construction policy and administrative management (32310)","Value":"486.27"},{"Year":"2010","Flow of official development assistance (ODA)":"Bilateral","Aid description (CRS code)":"Urban development and management (43030)","Value":"34935.52"},{"Year":"2010","Flow of official development assistance (ODA)":"Multilateral","Aid description (CRS code)":null,"Value":"21822.8"},{"Year":"2010","Flow of official development assistance (ODA)":"Multilateral","Aid description (CRS code)":"Construction policy and administrative management (32310)","Value":"513.66"},{"Year":"2010","Flow of official development assistance (ODA)":"Multilateral","Aid description (CRS code)":"Urban development and management (43030)","Value":"21309.14"},{"Year":"2011","Flow of official development assistance (ODA)":null,"Aid description (CRS code)":null,"Value":"84691.78"},{"Year":"2011","Flow of official development assistance (ODA)":null,"Aid description (CRS code)":"Construction policy and administrative management (32310)","Value":"21258.97"},{"Year":"2011","Flow of official development assistance (ODA)":null,"Aid description (CRS code)":"Urban development and management (43030)","Value":"63432.82"},{"Year":"2011","Flow of official development assistance (ODA)":"Bilateral","Aid description (CRS code)":null,"Value":"59306.37"},{"Year":"2011","Flow of official development assistance (ODA)":"Bilateral","Aid description (CRS code)":"Construction policy and administrative management (32310)","Value":"20856.15"},{"Year":"2011","Flow of official development assistance (ODA)":"Bilateral","Aid description (CRS code)":"Urban development and management (43030)","Value":"38450.22"},{"Year":"2011","Flow of official development assistance (ODA)":"Multilateral","Aid description (CRS code)":null,"Value":"25385.42"},{"Year":"2011","Flow of official development assistance (ODA)":"Multilateral","Aid description (CRS code)":"Construction policy and administrative management (32310)","Value":"402.82"},{"Year":"2011","Flow of official development assistance (ODA)":"Multilateral","Aid description (CRS code)":"Urban development and management (43030)","Value":"24982.6"},{"Year":"2012","Flow of official development assistance (ODA)":null,"Aid description (CRS code)":null,"Value":"25349.17"},{"Year":"2012","Flow of official development assistance (ODA)":null,"Aid description (CRS code)":"Construction policy and administrative management (32310)","Value":"-29869.89"},{"Year":"2012","Flow of official development assistance (ODA)":null,"Aid description (CRS code)":"Urban development and management (43030)","Value":"55219.06"},{"Year":"2012","Flow of official development assistance (ODA)":"Bilateral","Aid description (CRS code)":null,"Value":"-3888.56"},{"Year":"2012","Flow of official development assistance (ODA)":"Bilateral","Aid description (CRS code)":"Construction policy and administrative management (32310)","Value":"-30549.29"},{"Year":"2012","Flow of official development assistance (ODA)":"Bilateral","Aid description (CRS code)":"Urban development and management (43030)","Value":"26660.73"},{"Year":"2012","Flow of official development assistance (ODA)":"Multilateral","Aid description (CRS code)":null,"Value":"29237.74"},{"Year":"2012","Flow of official development assistance (ODA)":"Multilateral","Aid description (CRS code)":"Construction policy and administrative management (32310)","Value":"679.41"},{"Year":"2012","Flow of official development assistance (ODA)":"Multilateral","Aid description (CRS code)":"Urban development and management (43030)","Value":"28558.33"},{"Year":"2013","Flow of official development assistance (ODA)":null,"Aid description (CRS code)":null,"Value":"82200.63"},{"Year":"2013","Flow of official development assistance (ODA)":null,"Aid description (CRS code)":"Construction policy and administrative management (32310)","Value":"-7605.01"},{"Year":"2013","Flow of official development assistance (ODA)":null,"Aid description (CRS code)":"Urban development and management (43030)","Value":"89805.64"},{"Year":"2013","Flow of official development assistance (ODA)":"Bilateral","Aid description (CRS code)":null,"Value":"34630.34"},{"Year":"2013","Flow of official development assistance (ODA)":"Bilateral","Aid description (CRS code)":"Construction policy and administrative management (32310)","Value":"-9333.15"},{"Year":"2013","Flow of official development assistance (ODA)":"Bilateral","Aid description (CRS code)":"Urban development and management (43030)","Value":"43963.49"},{"Year":"2013","Flow of official development assistance (ODA)":"Multilateral","Aid description (CRS code)":null,"Value":"47570.29"},{"Year":"2013","Flow of official development assistance (ODA)":"Multilateral","Aid description (CRS code)":"Construction policy and administrative management (32310)","Value":"1728.14"},{"Year":"2013","Flow of official development assistance (ODA)":"Multilateral","Aid description (CRS code)":"Urban development and management (43030)","Value":"45842.15"},{"Year":"2014","Flow of official development assistance (ODA)":null,"Aid description (CRS code)":null,"Value":"88748.13"},{"Year":"2014","Flow of official development assistance (ODA)":null,"Aid description (CRS code)":"Construction policy and administrative management (32310)","Value":"9425.63"},{"Year":"2014","Flow of official development assistance (ODA)":null,"Aid description (CRS code)":"Urban development and management (43030)","Value":"79322.5"},{"Year":"2014","Flow of official development assistance (ODA)":"Bilateral","Aid description (CRS code)":null,"Value":"32762.27"},{"Year":"2014","Flow of official development assistance (ODA)":"Bilateral","Aid description (CRS code)":"Construction policy and administrative management (32310)","Value":"7830.03"},{"Year":"2014","Flow of official development assistance (ODA)":"Bilateral","Aid description (CRS code)":"Urban development and management (43030)","Value":"24932.24"},{"Year":"2014","Flow of official development assistance (ODA)":"Multilateral","Aid description (CRS code)":null,"Value":"55985.86"},{"Year":"2014","Flow of official development assistance (ODA)":"Multilateral","Aid description (CRS code)":"Construction policy and administrative management (32310)","Value":"1595.6"},{"Year":"2014","Flow of official development assistance (ODA)":"Multilateral","Aid description (CRS code)":"Urban development and management (43030)","Value":"54390.26"},{"Year":"2015","Flow of official development assistance (ODA)":null,"Aid description (CRS code)":null,"Value":"111499.75"},{"Year":"2015","Flow of official development assistance (ODA)":null,"Aid description (CRS code)":"Construction policy and administrative management (32310)","Value":"2562.86"},{"Year":"2015","Flow of official development assistance (ODA)":null,"Aid description (CRS code)":"Urban development and management (43030)","Value":"108936.9"},{"Year":"2015","Flow of official development assistance (ODA)":"Bilateral","Aid description (CRS code)":null,"Value":"61567.21"},{"Year":"2015","Flow of official development assistance (ODA)":"Bilateral","Aid description (CRS code)":"Construction policy and administrative management (32310)","Value":"1061.27"},{"Year":"2015","Flow of official development assistance (ODA)":"Bilateral","Aid description (CRS code)":"Urban development and management (43030)","Value":"60505.95"},{"Year":"2015","Flow of official development assistance (ODA)":"Multilateral","Aid description (CRS code)":null,"Value":"49932.54"},{"Year":"2015","Flow of official development assistance (ODA)":"Multilateral","Aid description (CRS code)":"Construction policy and administrative management (32310)","Value":"1501.59"},{"Year":"2015","Flow of official development assistance (ODA)":"Multilateral","Aid description (CRS code)":"Urban development and management (43030)","Value":"48430.95"}]' data-indicatorid='indicator_11-c-1' data-country="United Kingdom"
   data-edgesdata='[]' data-charttitle="Net official development assistance (ODA) to construction policy and administrative management, and urban development and management" data-measurementunit="GBP (£000s) " data-datasource="Department for International Development (DFID)" data-geographicalarea="United Kingdom" data-footnote="" data-showdata="true" data-graphtype="line">
-  
-  <div class="col-md-3">
-    <div id="toolbar">
-      <h4>Sub-categories</h4>
-      <p>Choose categories from the dropdowns below to see different breakdowns of the data. Some will not be available until a higher level is chosen.</p>
-      <div id="fields"></div>
+    
+    <div class="col-md-3">
+      <div id="toolbar">
+        <span id="series-help">
+          <h4>Sub-categories</h4>
+          <p>Choose categories from the dropdowns below to see different breakdowns of the data. Some will not be available until a higher level is chosen.</p>
+        </span>
+        <p>Click on the legend to remove individual lines from the chart.</p>
+        <div id="fields"></div>
+      </div>
+      <div id="units"></div>
     </div>
-    <div id="units"></div>
-  </div>
-  <div class="col-md-9">
+    <div class="col-md-9">
     
       
       
@@ -338,7 +340,7 @@
     <p>Geographical Area: United Kingdom</p>
     
     
-    <p>Units of Measure: GBP (£000s) </p>
+    <p>Unit of Measurement: GBP (£000s) </p>
     
     
   </div>
@@ -374,14 +376,14 @@
         
 <canvas></canvas>
     </div>
+
+    <div id="chartSelectionDownload"></div>    
     
 
-      
+
           </div>
           <div role="tabpanel" class="tab-pane" id="tableview">
-            <div id="selectionsTable">
-              
-            </div>
+            <div id="selectionsTable"></div>
           </div>
         </div>
         
@@ -393,7 +395,10 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
           <li role="presentation" class="nav-item active">
-            <a class="nav-link" data-toggle="tab" href="#metadata" aria-controls="metadata" role="tab">Metadata</a>
+            <a class="nav-link" data-toggle="tab" href="#metadata" aria-controls="metadata" role="tab">National Metadata</a>
+          </li>
+          <li role="presentation" class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#globalmetadata" aria-controls="globalmetadata" role="tab">Global Metadata</a>
           </li>
           <li role="presentation" class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#sources" aria-controls="sources" role="tab">Sources</a>
@@ -409,8 +414,8 @@
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane active" id="metadata">
             <!-- National Metadata -->
-            <div class="collapsible expanded" tabindex="0">
-              <h3>National Metadata<span> (Collapse)</span></h3>
+            <div > <!-- formerly class="collapsible expanded" -->
+              <h3 tabindex='0'>National Metadata</h3>
               <article>
                 <p>This table provides metadata for the actual indicator available from UK statistics closest to the corresponding global
                   SDG indicator. Please note that even when the global SDG indicator is fully available from UK statistics, this table
@@ -688,13 +693,13 @@
   
 </table>
 
-                </article>
-              </div>
-              <!-- Method of Computation -->
-              <div class="collapsible collapsed">
-                <h3>How the UK Indicator is Calculated<span> (Expand)</span></h3>
-                <article>
-                  <table class="table table-hover">
+              </article>
+            </div>
+            <!-- Method of Computation -->
+            <div > <!-- formerly class="collapsible collapsed" -->
+              <h3 tabindex='0'>How the UK Indicator is Calculated</h3>
+              <article>
+                <table class="table table-hover">
   
     
   
@@ -753,7 +758,7 @@
     
       
       <tr>
-        <th scope="row">Units of Measure </th>
+        <th scope="row">Unit of Measurement </th>
         <td>
           
             GBP (£000s) 
@@ -901,14 +906,16 @@
   
 </table>
 
-                </article>
-              </div>
-              <!-- Global Metadata -->
-              <div class="collapsible collapsed">
-                <h3>Global Metadata<span> (Expand)</span></h3>
-                <article>
-                  <p>This table provides information on metadata for SDG indicators as defined by the UN Statistical Commission. <a href="https://unstats.un.org/sdgs/metadata/">Complete global metadata</a> is provided by the UN Statistics Division.</p>
-                  <table class="table table-hover">
+              </article>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="globalmetadata">
+            <!-- Global Metadata -->
+            <div> <!-- formerly <div class="collapsible expanded"> -->
+              <h3 tabindex='0'>Global Metadata</h3>
+              <article>
+                <p>This table provides information on metadata for SDG indicators as defined by the UN Statistical Commission. <a href="https://unstats.un.org/sdgs/metadata/">Complete global metadata</a> is provided by the UN Statistics Division.</p>
+                <table class="table table-hover">
   
     
   
@@ -1193,11 +1200,11 @@
   
 </table>
 
-                </article>
-              </div>
+              </article>
             </div>
-            <div role="tabpanel" class="tab-pane" id="sources">
-              <!-- Count the non-empty sources (up to 5) -->
+          </div>
+          <div role="tabpanel" class="tab-pane" id="sources">
+            <!-- Count the non-empty sources (up to 5) -->
 
 
 
@@ -1488,29 +1495,30 @@
   </div>
 
 
-            </div>
-            
-            <div role="tabpanel" class="tab-pane" id="edit">
-              <div class="edit-container">
-                <a class="btn btn-primary" href="http://prose.io/#datasciencecampus/sdg-indicators/edit/develop/data/indicator_11-c-1.csv">Edit Data</a>
-                <a class="btn btn-primary" href="http://prose.io/#datasciencecampus/sdg-indicators/edit/develop/_indicators/11-c-1.md">Edit Metadata</a>
-              </div>
-            </div>
-            
           </div>
-        </section>
-      </div>
+          
+          <div role="tabpanel" class="tab-pane" id="edit">
+            <div class="edit-container">
+              <a class="btn btn-primary" href="http://prose.io/#datasciencecampus/sdg-indicators/edit/develop/data/indicator_11-c-1.csv">Edit Data</a>
+              <a class="btn btn-primary" href="http://prose.io/#datasciencecampus/sdg-indicators/edit/develop/_indicators/11-c-1.md">Edit Metadata</a>
+            </div>
+          </div>
+          
+        </div>
+      </section>
     </div>
   </div>
-  <footer role="contentinfo">
+</div>
+
+<footer role="contentinfo">
   <div class="container">
     <div class="row">
-      <div class="col-xs-7">
+      <div class="col-xs-9">
         Contact us at
-        <a href="mailto:sustainabledevelopment@ons.gov.uk">sustainabledevelopment@ons.gov.uk</a>.
+        <a href="mailto:sustainabledevelopment@ons.gov.uk">sustainabledevelopment@ons.gov.uk</a> | <a class="twitter-follow-button" href="https://twitter.com/StatsClaudie?ref_src=twsrc%5Etfw" data-show-count="false">@StatsClaudie</a>
       </div>
-      <div class="col-xs-5 text-right">
-        <a href="/sdg-indicators/faq/">Frequently Asked Questions</a>
+      <div class="col-xs-3 text-right">
+        <a href="/sdg-indicators/faq/">FAQs</a> | <a href="/sdg-indicators/about/cookies-and-privacy/">Cookies</a>
       </div>
     </div>
   </div>
@@ -1541,30 +1549,12 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
 <script type="text/javascript"> window.loop11_key = "0104054b3b56d396b42e668dfe096cee161454a8"; </script>
 <script src="//cdn.loop11.com/my/loop11.js" type="text/javascript" async="async"></script>
-<script src='/sdg-indicators/assets/js/sdg.js?v=20171128171941'></script>
+<script src='/sdg-indicators/assets/js/sdg.js?v=20180215143831'></script>
 <script src="/sdg-indicators/assets/js/lib/classList.js"></script>
 <script src="/sdg-indicators/assets/js/lib/modernizr-custom.js"></script>
 <script src="//cdn.jsdelivr.net/bluebird/3.5.0/bluebird.min.js"></script>
 <script>
 $(function() {
-      $('#metadata .collapsible h3').click(function() {
-      var $container = $(this).closest('div'),
-          $article = $(this).next('article'),
-          $span = $(this).find('span');
-
-      $article.slideToggle(function() {
-        if($container.hasClass('expanded')) {
-          $container.removeClass('expanded');
-          $container.addClass('collapsed');
-          $span.html(' (Expand)');
-        } else {
-          $container.removeClass('collapsed');
-          $container.addClass('expanded');
-          $span.html(' (Collapse)');
-        }
-      });
-    });
-
     if($('#indicatorData').length) {
       var domData = $('#indicatorData').data();
 

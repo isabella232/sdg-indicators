@@ -17,7 +17,6 @@
         <title>
         Indicator 3.8.2 - Goal 3 - Good Health and Well-being
         </title>
-        <!-- <meta property="og:title" content="U.S. Data Federation"> -->
         <meta name="description" content="">
         <meta property="og:description" content="">
         
@@ -44,7 +43,7 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.3/css/fixedColumns.dataTables.min.css">
-        <link rel="stylesheet" href="/sdg-indicators/assets/css/default.css?v=20171128171941">
+        <link rel="stylesheet" href="/sdg-indicators/assets/css/default.css?v=20180215143831">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
     </head>
 <body>
@@ -63,13 +62,13 @@
 <header role="banner">
   <div class="container">
 
-    <div class='col-xs-12'>
-      <ul id='accessibility-nav'></ul>
-    </div>
-
     <a class="navbar-brand" href="/sdg-indicators/" id="home">
       <img src="/sdg-indicators/assets/img/SDG_logo.png" alt="Sustainable Development Goals - 17 Goals to Transform our World" />
     </a>
+
+  <div class='hidden visible-xs float-right'>
+    <ul id='accessibility-nav' class='contrast-switcher'></ul>
+  </div>
 
     <nav class="navbar navbar-default" id="main-nav">
 
@@ -78,7 +77,7 @@
         <li><span data-target="search">Search</span></li>
       </ul>
 
-      <ul class="nav navbar-nav menu-target" id="menu">
+      <ul class="nav navbar-nav menu-target contrast-switcher" id="menu">
         <li class="nav-link active" >
           <a href="/sdg-indicators/">Goals</a>
         </li>
@@ -146,7 +145,7 @@
   <% if(units.length) { %>
     <h5>Units type</h5>
     <% _.each(units, function(unitsItem, index) { %>
-      <label><input type="radio" name="unit" value="<%=unitsItem%>" <% if(!index) { %>checked="checked"<% } %> /> <%=unitsItem%></label>
+      <label><input type="radio" name="unit" value="<%=unitsItem%>" tabindex=0 <% if(!index) { %>checked="checked"<% } %> /> <%=unitsItem%></label>
     <% }); %>
   <% } %>
 </script>
@@ -214,16 +213,19 @@
   
   <div class="row" id="indicatorData" data-indicatordata='[{"Year":"2001","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"4.5"},{"Year":"2002","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"4.8"},{"Year":"2003","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"5"},{"Year":"2004","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"4.9"},{"Year":"2005","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"5.5"},{"Year":"2006","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"5.8"},{"Year":"2007","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"5.7"},{"Year":"2008","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"5.1"},{"Year":"2009","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"5.3"},{"Year":"2010","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"5"},{"Year":"2011","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"6.6"},{"Year":"2012","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"6.4"},{"Year":"2013","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"6.2"},{"Year":"2014","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"7"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"7.2"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"4.1"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Medicines, prescriptions and healthcare products","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"2.5"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Medicines, prescriptions and healthcare products","Health product or service description":"National Health Service (NHS) prescription charges and payments","Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"0.2"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Medicines, prescriptions and healthcare products","Health product or service description":"Medicines and medical goods (not NHS)","Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"1.5"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Medicines, prescriptions and healthcare products","Health product or service description":"Other medical products (plasters, condoms, hot water bottles)","Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"0.3"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Medicines, prescriptions and healthcare products","Health product or service description":"Non-optical appliances and equipment (wheelchairs, batteries for hearing aids, shoe build-up)","Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"0.4"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Spectacles, lenses, accessories and repairs","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"1.6"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Spectacles, lenses, accessories and repairs","Health product or service description":"Purchase of spectacles, lenses, prescription sunglasses","Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"1.6"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Spectacles, lenses, accessories and repairs","Health product or service description":"Accessories or repairs to spectacles or lenses","Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"0"},{"Year":"2014","Health product or service":"Hospital services","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"2.9"},{"Year":"2014","Health product or service":"Hospital services","Health product or service type":"Outpatient services","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"2.8"},{"Year":"2014","Health product or service":"Hospital services","Health product or service type":"Outpatient services","Health product or service description":"National Health Service (NHS) medical, optical, dental and medical auxiliary services","Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"1.1"},{"Year":"2014","Health product or service":"Hospital services","Health product or service type":"Outpatient services","Health product or service description":"Private medical, optical, dental and medical auxiliary services","Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"1.7"},{"Year":"2014","Health product or service":"Hospital services","Health product or service type":"Outpatient services","Health product or service description":"Other services","Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"0"},{"Year":"2014","Health product or service":"Hospital services","Health product or service type":"Inpatient hospital services","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"0.1"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"3.8"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Medicines, prescriptions and healthcare products","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"2.2"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Medicines, prescriptions and healthcare products","Health product or service description":"National Health Service (NHS) prescription charges and payments","Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"0.2"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Medicines, prescriptions and healthcare products","Health product or service description":"Medicines and medical goods (not NHS)","Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"1.4"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Medicines, prescriptions and healthcare products","Health product or service description":"Other medical products (plasters, condoms, hot water bottles)","Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"0.2"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Medicines, prescriptions and healthcare products","Health product or service description":"Non-optical appliances and equipment (wheelchairs, batteries for hearing aids, shoe build-up)","Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"0.5"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Spectacles, lenses, accessories and repairs","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"1.6"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Spectacles, lenses, accessories and repairs","Health product or service description":"Purchase of spectacles, lenses, prescription sunglasses","Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"1.5"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Spectacles, lenses, accessories and repairs","Health product or service description":"Accessories or repairs to spectacles or lenses","Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"0"},{"Year":"2015","Health product or service":"Hospital services","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"3.4"},{"Year":"2015","Health product or service":"Hospital services","Health product or service type":"Outpatient services","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"3.4"},{"Year":"2015","Health product or service":"Hospital services","Health product or service type":"Outpatient services","Health product or service description":"National Health Service (NHS) medical, optical, dental and medical auxiliary services","Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"0.9"},{"Year":"2015","Health product or service":"Hospital services","Health product or service type":"Outpatient services","Health product or service description":"Private medical, optical, dental and medical auxiliary services","Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"2.4"},{"Year":"2015","Health product or service":"Hospital services","Health product or service type":"Outpatient services","Health product or service description":"Other services","Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"0"},{"Year":"2015","Health product or service":"Hospital services","Health product or service type":"Inpatient hospital services","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"0"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":"Owners","Tenure description":"Owned outright","Socio-economic type":null,"Age of reference person":null,"Value":"10.5"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":"Owners","Tenure description":"Owners buying with a mortgage","Socio-economic type":null,"Age of reference person":null,"Value":"8.5"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":"Owners","Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"9.5"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":"Social rented","Tenure description":"Council","Socio-economic type":null,"Age of reference person":null,"Value":"2.2"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":"Social rented","Tenure description":"Registered social landlord","Socio-economic type":null,"Age of reference person":null,"Value":"3.1"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":"Social rented","Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"2.6"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":"Private rented","Tenure description":"Rent free","Socio-economic type":null,"Age of reference person":null,"Value":"3.5"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":"Private rented","Tenure description":"Rent paid, unfurnished","Socio-economic type":null,"Age of reference person":null,"Value":"4"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":"Private rented","Tenure description":"Rent paid, furnished","Socio-economic type":null,"Age of reference person":null,"Value":"2"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":"Private rented","Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"3.6"},{"Year":"2014","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":"Large employers and higher managerial","Age of reference person":null,"Value":"10.2"},{"Year":"2014","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":"Higher professional","Age of reference person":null,"Value":"9.3"},{"Year":"2014","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":"Lower managerial and professional","Age of reference person":null,"Value":"7.8"},{"Year":"2014","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":"Intermediate","Age of reference person":null,"Value":"4.2"},{"Year":"2014","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":"Small employers","Age of reference person":null,"Value":"6.6"},{"Year":"2014","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":"Lower supervisory","Age of reference person":null,"Value":"6.1"},{"Year":"2014","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":"Semi-routine","Age of reference person":null,"Value":"4.6"},{"Year":"2014","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":"Routine","Age of reference person":null,"Value":"4.2"},{"Year":"2014","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":"Long term unemployed","Age of reference person":null,"Value":"1.9"},{"Year":"2014","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":"Students","Age of reference person":null,"Value":"2.7"},{"Year":"2014","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":"Occupation not stated","Age of reference person":null,"Value":"8.5"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":"Large employers and higher managerial","Age of reference person":null,"Value":"10.1"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":"Higher professional","Age of reference person":null,"Value":"11.2"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":"Lower managerial and professional","Age of reference person":null,"Value":"8.8"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":"Intermediate","Age of reference person":null,"Value":"6.4"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":"Small employers","Age of reference person":null,"Value":"7.7"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":"Lower supervisory","Age of reference person":null,"Value":"4.8"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":"Semi-routine","Age of reference person":null,"Value":"2.9"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":"Routine","Age of reference person":null,"Value":"3.6"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":"Long term unemployed","Age of reference person":null,"Value":"1.7"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":"Students","Age of reference person":null,"Value":"2.2"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":"Occupation not stated","Age of reference person":null,"Value":"7.7"},{"Year":"2014","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"Under 30","Value":"3.1"},{"Year":"2014","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"30 to 49","Value":"5.4"},{"Year":"2014","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"50 to 64","Value":"8.1"},{"Year":"2014","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"65 to 74","Value":"11.1"},{"Year":"2014","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"75 and over","Value":"7.6"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"Under 30","Value":"1.8"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"30 to 49","Value":"3.5"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"50 to 64","Value":"5.4"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"65 to 74","Value":"5.4"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"75 and over","Value":"3.6"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"4.1"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Medicines, prescriptions and healthcare products","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"Under 30","Value":"1.3"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Medicines, prescriptions and healthcare products","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"30 to 49","Value":"2.1"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Medicines, prescriptions and healthcare products","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"50 to 64","Value":"3.4"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Medicines, prescriptions and healthcare products","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"65 to 74","Value":"2.8"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Medicines, prescriptions and healthcare products","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"75 and over","Value":"2.2"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Medicines, prescriptions and healthcare products","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"2.5"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Spectacles, lenses, accessories and repairs","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"Under 30","Value":"0.5"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Spectacles, lenses, accessories and repairs","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"30 to 49","Value":"1.4"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Spectacles, lenses, accessories and repairs","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"50 to 64","Value":"2"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Spectacles, lenses, accessories and repairs","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"65 to 74","Value":"2.6"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Spectacles, lenses, accessories and repairs","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"75 and over","Value":"1.4"},{"Year":"2014","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Spectacles, lenses, accessories and repairs","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"1.6"},{"Year":"2014","Health product or service":"Hospital services","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"Under 30","Value":"1.3"},{"Year":"2014","Health product or service":"Hospital services","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"30 to 49","Value":"1.9"},{"Year":"2014","Health product or service":"Hospital services","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"50 to 64","Value":"2.7"},{"Year":"2014","Health product or service":"Hospital services","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"65 to 74","Value":"5.7"},{"Year":"2014","Health product or service":"Hospital services","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"75 and over","Value":"4"},{"Year":"2014","Health product or service":"Hospital services","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"2.9"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"Under 30","Value":"2.5"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"30 to 49","Value":"5.9"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"50 to 64","Value":"9.1"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"65 to 74","Value":"11.2"},{"Year":"2015","Health product or service":null,"Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"75 and over","Value":"6"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"Under 30","Value":"2"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"30 to 49","Value":"3.3"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"50 to 64","Value":"3.8"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"65 to 74","Value":"7"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"75 and over","Value":"2.8"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"3.8"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Medicines, prescriptions and healthcare products","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"Under 30","Value":"0.9"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Medicines, prescriptions and healthcare products","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"30 to 49","Value":"2.1"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Medicines, prescriptions and healthcare products","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"50 to 64","Value":"2.1"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Medicines, prescriptions and healthcare products","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"65 to 74","Value":"3.9"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Medicines, prescriptions and healthcare products","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"75 and over","Value":"1.8"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Medicines, prescriptions and healthcare products","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"2.2"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Spectacles, lenses, accessories and repairs","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"Under 30","Value":"1.1"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Spectacles, lenses, accessories and repairs","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"30 to 49","Value":"1.2"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Spectacles, lenses, accessories and repairs","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"50 to 64","Value":"1.7"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Spectacles, lenses, accessories and repairs","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"65 to 74","Value":"3.1"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Spectacles, lenses, accessories and repairs","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"75 and over","Value":"1"},{"Year":"2015","Health product or service":"Medical products, appliances and equipment","Health product or service type":"Spectacles, lenses, accessories and repairs","Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"1.6"},{"Year":"2015","Health product or service":"Hospital services","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"Under 30","Value":"0.6"},{"Year":"2015","Health product or service":"Hospital services","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"30 to 49","Value":"2.6"},{"Year":"2015","Health product or service":"Hospital services","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"50 to 64","Value":"5.2"},{"Year":"2015","Health product or service":"Hospital services","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"65 to 74","Value":"4.3"},{"Year":"2015","Health product or service":"Hospital services","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":"75 and over","Value":"3.2"},{"Year":"2015","Health product or service":"Hospital services","Health product or service type":null,"Health product or service description":null,"Tenure type":null,"Tenure description":null,"Socio-economic type":null,"Age of reference person":null,"Value":"3.4"}]' data-indicatorid='indicator_3-8-2' data-country="United Kingdom"
   data-edgesdata='[{"From":"Health product or service","To":"Health product or service type"},{"From":"Health product or service type","To":"Health product or service description"},{"From":"Tenure type","To":"Tenure description"}]' data-charttitle="Average weekly household expenditure on health" data-measurementunit="GBP (£)" data-datasource="Office for National Statistics (ONS)" data-geographicalarea="United Kingdom" data-footnote="" data-showdata="true" data-graphtype="line">
-  
-  <div class="col-md-3">
-    <div id="toolbar">
-      <h4>Sub-categories</h4>
-      <p>Choose categories from the dropdowns below to see different breakdowns of the data. Some will not be available until a higher level is chosen.</p>
-      <div id="fields"></div>
+    
+    <div class="col-md-3">
+      <div id="toolbar">
+        <span id="series-help">
+          <h4>Sub-categories</h4>
+          <p>Choose categories from the dropdowns below to see different breakdowns of the data. Some will not be available until a higher level is chosen.</p>
+        </span>
+        <p>Click on the legend to remove individual lines from the chart.</p>
+        <div id="fields"></div>
+      </div>
+      <div id="units"></div>
     </div>
-    <div id="units"></div>
-  </div>
-  <div class="col-md-9">
+    <div class="col-md-9">
     
       
       
@@ -446,7 +448,7 @@
     <p>Geographical Area: United Kingdom</p>
     
     
-    <p>Units of Measure: GBP (£)</p>
+    <p>Unit of Measurement: GBP (£)</p>
     
     
   </div>
@@ -482,14 +484,14 @@
         
 <canvas></canvas>
     </div>
+
+    <div id="chartSelectionDownload"></div>    
     
 
-      
+
           </div>
           <div role="tabpanel" class="tab-pane" id="tableview">
-            <div id="selectionsTable">
-              
-            </div>
+            <div id="selectionsTable"></div>
           </div>
         </div>
         
@@ -501,7 +503,10 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
           <li role="presentation" class="nav-item active">
-            <a class="nav-link" data-toggle="tab" href="#metadata" aria-controls="metadata" role="tab">Metadata</a>
+            <a class="nav-link" data-toggle="tab" href="#metadata" aria-controls="metadata" role="tab">National Metadata</a>
+          </li>
+          <li role="presentation" class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#globalmetadata" aria-controls="globalmetadata" role="tab">Global Metadata</a>
           </li>
           <li role="presentation" class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#sources" aria-controls="sources" role="tab">Sources</a>
@@ -517,8 +522,8 @@
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane active" id="metadata">
             <!-- National Metadata -->
-            <div class="collapsible expanded" tabindex="0">
-              <h3>National Metadata<span> (Collapse)</span></h3>
+            <div > <!-- formerly class="collapsible expanded" -->
+              <h3 tabindex='0'>National Metadata</h3>
               <article>
                 <p>This table provides metadata for the actual indicator available from UK statistics closest to the corresponding global
                   SDG indicator. Please note that even when the global SDG indicator is fully available from UK statistics, this table
@@ -796,13 +801,13 @@
   
 </table>
 
-                </article>
-              </div>
-              <!-- Method of Computation -->
-              <div class="collapsible collapsed">
-                <h3>How the UK Indicator is Calculated<span> (Expand)</span></h3>
-                <article>
-                  <table class="table table-hover">
+              </article>
+            </div>
+            <!-- Method of Computation -->
+            <div > <!-- formerly class="collapsible collapsed" -->
+              <h3 tabindex='0'>How the UK Indicator is Calculated</h3>
+              <article>
+                <table class="table table-hover">
   
     
   
@@ -861,7 +866,7 @@
     
       
       <tr>
-        <th scope="row">Units of Measure </th>
+        <th scope="row">Unit of Measurement </th>
         <td>
           
             GBP (£)
@@ -1009,14 +1014,16 @@
   
 </table>
 
-                </article>
-              </div>
-              <!-- Global Metadata -->
-              <div class="collapsible collapsed">
-                <h3>Global Metadata<span> (Expand)</span></h3>
-                <article>
-                  <p>This table provides information on metadata for SDG indicators as defined by the UN Statistical Commission. <a href="https://unstats.un.org/sdgs/metadata/">Complete global metadata</a> is provided by the UN Statistics Division.</p>
-                  <table class="table table-hover">
+              </article>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="globalmetadata">
+            <!-- Global Metadata -->
+            <div> <!-- formerly <div class="collapsible expanded"> -->
+              <h3 tabindex='0'>Global Metadata</h3>
+              <article>
+                <p>This table provides information on metadata for SDG indicators as defined by the UN Statistical Commission. <a href="https://unstats.un.org/sdgs/metadata/">Complete global metadata</a> is provided by the UN Statistics Division.</p>
+                <table class="table table-hover">
   
     
   
@@ -1301,11 +1308,11 @@
   
 </table>
 
-                </article>
-              </div>
+              </article>
             </div>
-            <div role="tabpanel" class="tab-pane" id="sources">
-              <!-- Count the non-empty sources (up to 5) -->
+          </div>
+          <div role="tabpanel" class="tab-pane" id="sources">
+            <!-- Count the non-empty sources (up to 5) -->
 
 
 
@@ -2156,29 +2163,30 @@
   </div>
 
 
-            </div>
-            
-            <div role="tabpanel" class="tab-pane" id="edit">
-              <div class="edit-container">
-                <a class="btn btn-primary" href="http://prose.io/#datasciencecampus/sdg-indicators/edit/develop/data/indicator_3-8-2.csv">Edit Data</a>
-                <a class="btn btn-primary" href="http://prose.io/#datasciencecampus/sdg-indicators/edit/develop/_indicators/3-8-2.md">Edit Metadata</a>
-              </div>
-            </div>
-            
           </div>
-        </section>
-      </div>
+          
+          <div role="tabpanel" class="tab-pane" id="edit">
+            <div class="edit-container">
+              <a class="btn btn-primary" href="http://prose.io/#datasciencecampus/sdg-indicators/edit/develop/data/indicator_3-8-2.csv">Edit Data</a>
+              <a class="btn btn-primary" href="http://prose.io/#datasciencecampus/sdg-indicators/edit/develop/_indicators/3-8-2.md">Edit Metadata</a>
+            </div>
+          </div>
+          
+        </div>
+      </section>
     </div>
   </div>
-  <footer role="contentinfo">
+</div>
+
+<footer role="contentinfo">
   <div class="container">
     <div class="row">
-      <div class="col-xs-7">
+      <div class="col-xs-9">
         Contact us at
-        <a href="mailto:sustainabledevelopment@ons.gov.uk">sustainabledevelopment@ons.gov.uk</a>.
+        <a href="mailto:sustainabledevelopment@ons.gov.uk">sustainabledevelopment@ons.gov.uk</a> | <a class="twitter-follow-button" href="https://twitter.com/StatsClaudie?ref_src=twsrc%5Etfw" data-show-count="false">@StatsClaudie</a>
       </div>
-      <div class="col-xs-5 text-right">
-        <a href="/sdg-indicators/faq/">Frequently Asked Questions</a>
+      <div class="col-xs-3 text-right">
+        <a href="/sdg-indicators/faq/">FAQs</a> | <a href="/sdg-indicators/about/cookies-and-privacy/">Cookies</a>
       </div>
     </div>
   </div>
@@ -2209,30 +2217,12 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
 <script type="text/javascript"> window.loop11_key = "0104054b3b56d396b42e668dfe096cee161454a8"; </script>
 <script src="//cdn.loop11.com/my/loop11.js" type="text/javascript" async="async"></script>
-<script src='/sdg-indicators/assets/js/sdg.js?v=20171128171941'></script>
+<script src='/sdg-indicators/assets/js/sdg.js?v=20180215143831'></script>
 <script src="/sdg-indicators/assets/js/lib/classList.js"></script>
 <script src="/sdg-indicators/assets/js/lib/modernizr-custom.js"></script>
 <script src="//cdn.jsdelivr.net/bluebird/3.5.0/bluebird.min.js"></script>
 <script>
 $(function() {
-      $('#metadata .collapsible h3').click(function() {
-      var $container = $(this).closest('div'),
-          $article = $(this).next('article'),
-          $span = $(this).find('span');
-
-      $article.slideToggle(function() {
-        if($container.hasClass('expanded')) {
-          $container.removeClass('expanded');
-          $container.addClass('collapsed');
-          $span.html(' (Expand)');
-        } else {
-          $container.removeClass('collapsed');
-          $container.addClass('expanded');
-          $span.html(' (Collapse)');
-        }
-      });
-    });
-
     if($('#indicatorData').length) {
       var domData = $('#indicatorData').data();
 
