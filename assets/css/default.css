@@ -830,7 +830,8 @@ h5 + .btn-download {
         background: none; }
     #main-content .nav-tabs .nav-item.active a {
       border: none;
-      border-bottom: 2px solid black; }
+      border-bottom: 2px solid black;
+      padding-left: 5px; }
   #main-content .tab-content .tab-pane {
     padding-top: 1.5rem; }
     #main-content .tab-content .tab-pane th {
