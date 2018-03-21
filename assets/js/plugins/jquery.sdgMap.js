@@ -191,7 +191,7 @@
         return color(getValue.call(that, d));
       }
 
-      function showInfoPanel(d) {
+      function getYearByYearMarkup(d) {
         var yearValues = getYearValues.call(this, d),
           content = '<h2>' + getName(d) + '</h2>';
         
@@ -205,7 +205,11 @@
           content += '<p>No data available</p>';
         }
 
-        infoPanel.html(content);
+        return content;
+      }
+
+      function showInfoPanel(d) {
+        infoPanel.html(getYearByYearMarkup.call(this, d));
         infoPanel.fadeIn();
       }
 
@@ -222,8 +226,11 @@
           var centroid = path.centroid(d);
           x = centroid[0];
           y = centroid[1];
-          k = 4;
           centered = d;
+          var bounds = path.bounds(d),
+            boundsWidth = bounds[1][0] - bounds[0][0],
+            boundsHeight = bounds[1][1] - bounds[0][1];
+          k = Math.min(Math.floor(width / boundsWidth), Math.floor(height / boundsHeight)) * 0.5;
 
           showInfoPanel.call(this, d);
           resetButton.show();
@@ -281,7 +288,7 @@
 
         tooltip.removeClass("hidden")
           .attr("style", "left:"+(mouse[0] + 10)+"px;top:"+(mouse[1] + 10)+"px")
-          .html(d.properties.lad16nm);// +  ' ' + getValue.call(that, d) + ' (' + d.properties.lad16cd + ')' );
+          .html(getYearByYearMarkup.call(this, d));// +  ' ' + getValue.call(that, d) + ' (' + d.properties.lad16cd + ')' );
       }
     },
     // additional funcs
