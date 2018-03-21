@@ -1,4 +1,5 @@
 From,To
 Region,Local authority
+Local authority,GeoCode
 Learning category,Learning sub-category (higher)
 Learning sub-category (higher),Learning sub-category (lower)
