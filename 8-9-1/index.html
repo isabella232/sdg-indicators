@@ -43,7 +43,7 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.3/css/fixedColumns.dataTables.min.css">
-        <link rel="stylesheet" href="/sdg-indicators/assets/css/default.css?v=20180321101331">
+        <link rel="stylesheet" href="/sdg-indicators/assets/css/default.css?v=20180321104744">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
     </head>
 <body>
@@ -200,6 +200,7 @@
         <p>Data follows the UN specification for this indicator and has been indentified in collaboration with topic experts.</p>
 
 <p>The Sustainable Development Goals is a collaborative project, if you have any feedback or suggestions for data please contact us at <a href="mailto:SustainableDevelopment@ons.gov.uk">SustainableDevelopment@ons.gov.uk</a></p>
+
 
       </div>
     </div>
@@ -391,6 +392,7 @@
         
 <canvas></canvas>
     </div>
+    <div id="plotLegend"></div>
 
     <div id="chartSelectionDownload"></div>    
     
@@ -435,7 +437,7 @@
           <div role="tabpanel" class="tab-pane active" id="metadata">
             <!-- National Metadata -->
             <div > <!-- formerly class="collapsible expanded" -->
-              <h3 tabindex='0'>National Metadata</h3>
+              <!-- <h3 tabindex='0'>National Metadata</h3> -->
               <article>
                 <p>This table provides metadata for the actual indicator available from UK statistics closest to the corresponding global
                   SDG indicator. Please note that even when the global SDG indicator is fully available from UK statistics, this table
@@ -469,18 +471,12 @@
     
   
     
-  
-    
-  
-    
-  
-    
       
       <tr>
-        <th scope="row">Actual Indicator Available </th>
+        <th scope="row">Indicator available </th>
         <td>
           
-            Tourism expenditure in the UK as a percentage of GDP and in growth rate 
+            Tourism expenditure in the UK as a percentage of GDP and in growth rate
           
         </td>
         </tr>
@@ -490,10 +486,10 @@
     
       
       <tr>
-        <th scope="row">Actual Indicator Description </th>
+        <th scope="row">Indicator description </th>
         <td>
           
-            
+            Tourism expenditure in the UK as a percentage of GDP and in growth rate
           
         </td>
         </tr>
@@ -503,33 +499,7 @@
     
       
       <tr>
-        <th scope="row">Indicator Periodicity </th>
-        <td>
-          
-            Annual
-          
-        </td>
-        </tr>
-        
-      
-  
-    
-      
-      <tr>
-        <th scope="row">Earliest Available Data </th>
-        <td>
-          
-            2013
-          
-        </td>
-        </tr>
-        
-      
-  
-    
-      
-      <tr>
-        <th scope="row">Geographic Coverage </th>
+        <th scope="row">Geographical coverage </th>
         <td>
           
             United Kingdom
@@ -542,243 +512,7 @@
     
       
       <tr>
-        <th scope="row">Release Date </th>
-        <td>
-          
-            
-          
-        </td>
-        </tr>
-        
-      
-  
-    
-      
-      <tr>
-        <th scope="row">Next Release </th>
-        <td>
-          
-            
-          
-        </td>
-        </tr>
-        
-      
-  
-    
-      
-      <tr>
-        <th scope="row">Statistical Classification </th>
-        <td>
-          
-            
-          
-        </td>
-        </tr>
-        
-      
-  
-    
-      
-      <tr>
-        <th scope="row">Disaggregation </th>
-        <td>
-          
-            
-          
-        </td>
-        </tr>
-        
-      
-  
-    
-      
-      <tr>
-        <th scope="row">Comments and Limitations </th>
-        <td>
-          
-            
-          
-        </td>
-        </tr>
-        
-      
-  
-    
-      
-      <tr>
-        <th scope="row">Contact Details </th>
-        <td>
-          
-            
-          
-        </td>
-        </tr>
-        
-      
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-</table>
-
-              </article>
-            </div>
-            <!-- Method of Computation -->
-            <div > <!-- formerly class="collapsible collapsed" -->
-              <h3 tabindex='0'>How the UK Indicator is Calculated</h3>
-              <article>
-                <table class="table table-hover">
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      
-      <tr>
-        <th scope="row">Unit of Measurement </th>
+        <th scope="row">Unit of measurement </th>
         <td>
           
             Percentage (%)
@@ -791,10 +525,23 @@
     
       
       <tr>
+        <th scope="row">Definitions </th>
+        <td>
+          
+            World Tourism Organization (UNTWO)
+          
+        </td>
+        </tr>
+        
+      
+  
+    
+      
+      <tr>
         <th scope="row">Calculations </th>
         <td>
           
-            
+            Tourism expenditure as % GDP = (Tourism expenditure / GDP CVM [£m]) * 100 OR Growth rate as % GDP = (Tourism expenditure + domestic expenditure / GDP CVM [£m]) * 100
           
         </td>
         </tr>
@@ -804,10 +551,10 @@
     
       
       <tr>
-        <th scope="row">Numerator </th>
+        <th scope="row">Other information </th>
         <td>
           
-            
+            Data are produced using the following sources: Office for National Statistics; Department for Environment, Food & Rural Affairs; Food and Agriculture Organization of the United Nations; Eurostat; European Forest Institute; Kentish Cobnuts Association; British Geological Survey; HM Revenue & Customs. 
           
         </td>
         </tr>
@@ -817,20 +564,7 @@
     
       
       <tr>
-        <th scope="row">Denominator </th>
-        <td>
-          
-            
-          
-        </td>
-        </tr>
-        
-      
-  
-    
-      
-      <tr>
-        <th scope="row">Definitions </th>
+        <th scope="row">Last updated </th>
         <td>
           
             
@@ -932,7 +666,7 @@
           <div role="tabpanel" class="tab-pane" id="globalmetadata">
             <!-- Global Metadata -->
             <div> <!-- formerly <div class="collapsible expanded"> -->
-              <h3 tabindex='0'>Global Metadata</h3>
+              <!-- <h3 tabindex='0'>Global Metadata</h3> -->
               <article>
                 <p>This table provides information on metadata for SDG indicators as defined by the UN Statistical Commission. <a href="https://unstats.un.org/sdgs/metadata/">Complete global metadata</a> is provided by the UN Statistics Division.</p>
                 <table class="table table-hover">
@@ -948,7 +682,7 @@
     
       
       <tr>
-        <th scope="row">Indicator Name </th>
+        <th scope="row">Indicator name </th>
         <td>
           
             Tourism direct GDP as a proportion of total GDP and in growth rate
@@ -961,7 +695,7 @@
     
       
       <tr>
-        <th scope="row">Indicator Number </th>
+        <th scope="row">Indicator number </th>
         <td>
           
             8.9.1
@@ -974,7 +708,7 @@
     
       
       <tr>
-        <th scope="row">Target Name </th>
+        <th scope="row">Target name </th>
         <td>
           
             By 2030, devise and implement policies to promote sustainable tourism that creates jobs and promotes local culture and products
@@ -987,7 +721,7 @@
     
       
       <tr>
-        <th scope="row">Target Number </th>
+        <th scope="row">Target number </th>
         <td>
           
             8.9
@@ -1000,10 +734,10 @@
     
       
       <tr>
-        <th scope="row">Global Indicator Description </th>
+        <th scope="row">Global indicator description </th>
         <td>
           
-            
+            Tourism direct GDP as a proportion of total GDP and in growth rate
           
         </td>
         </tr>
@@ -1013,7 +747,7 @@
     
       
       <tr>
-        <th scope="row">UN Designated Tier </th>
+        <th scope="row">UN designated tier </th>
         <td>
           
             2
@@ -1026,10 +760,10 @@
     
       
       <tr>
-        <th scope="row">UN Custodian Agency </th>
+        <th scope="row">UN custodian agency </th>
         <td>
           
-            World Tourism Organization (UNWTO)
+            World Tourism Organization (UNTWO)
           
         </td>
         </tr>
@@ -1039,46 +773,7 @@
     
       
       <tr>
-        <th scope="row">UN Partner Agency </th>
-        <td>
-          
-            
-          
-        </td>
-        </tr>
-        
-      
-  
-    
-      
-      <tr>
-        <th scope="row">UNSD Indicator Code </th>
-        <td>
-          
-            
-          
-        </td>
-        </tr>
-        
-      
-  
-    
-      
-      <tr>
-        <th scope="row">UN Indicator Notes </th>
-        <td>
-          
-            
-          
-        </td>
-        </tr>
-        
-      
-  
-    
-      
-      <tr>
-        <th scope="row">Link to UN Metadata </th>
+        <th scope="row">Link to UN metadata </th>
         <td>
           
             
@@ -1087,7 +782,7 @@
             
 
             
-              <a href="http://unstats.un.org/sdgs/files/metadata-compilation/Metadata-Goal-8.pdf" target="_blank">
+              <a href="https://unstats.un.org/sdgs/files/metadata-compilation/Metadata-Goal-8.pdf" target="_blank">
                 United Nations Sustainable Development Goals Metadata (PDF 526 KB) <span class="visuallyhidden">opens in a new window</span>
               </a>
             
@@ -1202,6 +897,259 @@
   
     
   
+</table>
+
+              </article>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="sources">
+            <!-- Count the non-empty sources (up to 5) -->
+
+
+
+
+  <div class="row no-gutters">
+  
+   
+    
+    <div class="col-md-6">
+      
+        <h4>Source 1</h4>
+      
+      <table class="table table-hover">
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      
+      <tr>
+        <th scope="row">Organisation </th>
+        <td>
+          
+            Office for National Statistics (ONS)
+          
+        </td>
+        </tr>
+        
+      
+  
+    
+      
+      <tr>
+        <th scope="row">Periodicity </th>
+        <td>
+          
+            Annual
+          
+        </td>
+        </tr>
+        
+      
+  
+    
+      
+      <tr>
+        <th scope="row">Earliest available data </th>
+        <td>
+          
+            2013
+          
+        </td>
+        </tr>
+        
+      
+  
+    
+      
+      <tr>
+        <th scope="row">Geographical coverage </th>
+        <td>
+          
+            United Kingdom
+          
+        </td>
+        </tr>
+        
+      
+  
+    
+      
+      <tr>
+        <th scope="row">Link to data source </th>
+        <td>
+          
+            
+            
+            
+            
+
+            
+              <a href="https://www.ons.gov.uk/businessindustryandtrade/tourismindustry/adhocs/005978unitedkingdomtourismsatelliteaccount2014" target="_blank">
+                United Kingdom Tourism Satellite Account, 2014 <span class="visuallyhidden">opens in a new window</span>
+              </a>
+            
+            
+          
+        </td>
+        </tr>
+        
+      
+  
+    
+      
+      
+  
+    
+      
+      <tr>
+        <th scope="row">Release date </th>
+        <td>
+          
+            04-08-2016
+          
+        </td>
+        </tr>
+        
+      
+  
+    
+      
+      <tr>
+        <th scope="row">Next release </th>
+        <td>
+          
+            To be announced
+          
+        </td>
+        </tr>
+        
+      
+  
+    
+      
+      <tr>
+        <th scope="row">Statistical classification </th>
+        <td>
+          
+            Official Statistic
+          
+        </td>
+        </tr>
+        
+      
+  
+    
+      
+      <tr>
+        <th scope="row">Contact details </th>
+        <td>
+          
+            sean.white@ons.gov.uk
+          
+        </td>
+        </tr>
+        
+      
+  
+    
+      
+      <tr>
+        <th scope="row">Other information </th>
+        <td>
+          
+            Source metadata - https://www.ons.gov.uk/economy/nationalaccounts/satelliteaccounts/bulletins/uktourismsatelliteaccountuktsa/2013
+          
+        </td>
+        </tr>
+        
+      
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1220,23 +1168,17 @@
   
 </table>
 
-              </article>
-            </div>
-          </div>
-          <div role="tabpanel" class="tab-pane" id="sources">
-            <!-- Count the non-empty sources (up to 5) -->
-
-
-
-
-  <h3>UK Data Sources Metadata</h3>
-  <div class="row no-gutters">
-  
+    </div>
+    
    
     
     <div class="col-md-6">
-      <h4>Source 1</h4>
+      
+        <h4>Source 2</h4>
+      
       <table class="table table-hover">
+  
+    
   
     
   
@@ -1333,7 +1275,7 @@
     
       
       <tr>
-        <th scope="row">Earliest Available Data </th>
+        <th scope="row">Earliest available data </th>
         <td>
           
             2013
@@ -1346,7 +1288,7 @@
     
       
       <tr>
-        <th scope="row">Geographical Coverage </th>
+        <th scope="row">Geographical coverage </th>
         <td>
           
             United Kingdom
@@ -1359,7 +1301,7 @@
     
       
       <tr>
-        <th scope="row">Link to Data Source </th>
+        <th scope="row">Link to data source </th>
         <td>
           
             
@@ -1368,8 +1310,8 @@
             
 
             
-              <a href="https://www.ons.gov.uk/businessindustryandtrade/tourismindustry/adhocs/005978unitedkingdomtourismsatelliteaccount2014" target="_blank">
-                United Kingdom Tourism Satellite Account, 2014 <span class="visuallyhidden">opens in a new window</span>
+              <a href="https://www.ons.gov.uk/economy/nationalaccounts/satelliteaccounts/datasets/uktourismsatelliteaccounttsatables" target="_blank">
+                UK Tourism Satellite Account: TSA Tables <span class="visuallyhidden">opens in a new window</span>
               </a>
             
             
@@ -1386,10 +1328,10 @@
     
       
       <tr>
-        <th scope="row">Release Date </th>
+        <th scope="row">Release date </th>
         <td>
           
-            04-08-2016
+            27-11-2017
           
         </td>
         </tr>
@@ -1399,10 +1341,10 @@
     
       
       <tr>
-        <th scope="row">Next Release </th>
+        <th scope="row">Next release </th>
         <td>
           
-            
+            To be announced
           
         </td>
         </tr>
@@ -1412,10 +1354,10 @@
     
       
       <tr>
-        <th scope="row">Statistical Classification </th>
+        <th scope="row">Statistical classification </th>
         <td>
           
-            
+            Official Statistic
           
         </td>
         </tr>
@@ -1425,10 +1367,10 @@
     
       
       <tr>
-        <th scope="row">Contact Details </th>
+        <th scope="row">Contact details </th>
         <td>
           
-            
+            sean.white@ons.gov.uk
           
         </td>
         </tr>
@@ -1438,39 +1380,15 @@
     
       
       <tr>
-        <th scope="row">Other Information </th>
+        <th scope="row">Other information </th>
         <td>
           
-            
+            Source metadata - https://www.ons.gov.uk/economy/nationalaccounts/satelliteaccounts/bulletins/uktourismsatelliteaccountuktsa/2013
           
         </td>
         </tr>
         
       
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
   
     
   
@@ -1515,8 +1433,12 @@
    
     
     <div class="col-md-6">
-      <h4>Source 2</h4>
+      
+        <h4>Source 3</h4>
+      
       <table class="table table-hover">
+  
+    
   
     
   
@@ -1614,7 +1536,7 @@
         <th scope="row">Organisation </th>
         <td>
           
-            Office for National Statistics
+            Office for National Statistics (ONS)
           
         </td>
         </tr>
@@ -1627,7 +1549,7 @@
         <th scope="row">Periodicity </th>
         <td>
           
-            Quarterly  
+            Quarterly
           
         </td>
         </tr>
@@ -1637,7 +1559,7 @@
     
       
       <tr>
-        <th scope="row">Earliest Available Data </th>
+        <th scope="row">Earliest available data </th>
         <td>
           
             1955
@@ -1650,7 +1572,7 @@
     
       
       <tr>
-        <th scope="row">Geographical Coverage </th>
+        <th scope="row">Geographical coverage </th>
         <td>
           
             United Kingdom
@@ -1663,7 +1585,7 @@
     
       
       <tr>
-        <th scope="row">Link to Data Source </th>
+        <th scope="row">Link to data source </th>
         <td>
           
             
@@ -1672,8 +1594,8 @@
             
 
             
-              <a href="https://www.ons.gov.uk/economy/grossdomesticproductgdp/datasets/preliminaryestimateofgdp" target="_blank">
-                Preliminary Estimate of GDP time series dataset <span class="visuallyhidden">opens in a new window</span>
+              <a href="https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/abmi/pn2" target="_blank">
+                Gross Domestic Product: Chained Volume Measures: Seasonally Adjusted £m <span class="visuallyhidden">opens in a new window</span>
               </a>
             
             
@@ -1690,7 +1612,7 @@
     
       
       <tr>
-        <th scope="row">Release Date </th>
+        <th scope="row">Release date </th>
         <td>
           
             26-07-2017
@@ -1703,10 +1625,10 @@
     
       
       <tr>
-        <th scope="row">Next Release </th>
+        <th scope="row">Next release </th>
         <td>
           
-            
+            29-03-2018
           
         </td>
         </tr>
@@ -1716,10 +1638,10 @@
     
       
       <tr>
-        <th scope="row">Statistical Classification </th>
+        <th scope="row">Statistical classification </th>
         <td>
           
-            
+            Official Statistic
           
         </td>
         </tr>
@@ -1729,10 +1651,10 @@
     
       
       <tr>
-        <th scope="row">Contact Details </th>
+        <th scope="row">Contact details </th>
         <td>
           
-            
+            Robert Kent Smith gdp@ons.gsi.gov.uk
           
         </td>
         </tr>
@@ -1742,39 +1664,15 @@
     
       
       <tr>
-        <th scope="row">Other Information </th>
+        <th scope="row">Other information </th>
         <td>
           
-            
+            Source metadata - https://www.ons.gov.uk/economy/grossdomesticproductgdp/qmis/grossdomesticproductgdpqmi 
           
         </td>
         </tr>
         
       
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
   
     
   
@@ -1814,8 +1712,7 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-9">
-        Contact us at
-        <a href="mailto:sustainabledevelopment@ons.gov.uk">sustainabledevelopment@ons.gov.uk</a> | <a class="twitter-follow-button" href="https://twitter.com/StatsClaudie?ref_src=twsrc%5Etfw" data-show-count="false">@StatsClaudie</a>
+        <a href="mailto:sustainabledevelopment@ons.gov.uk">Contact us</a> | <a class="twitter-follow-button" href="https://twitter.com/StatsClaudie?ref_src=twsrc%5Etfw" data-show-count="false">@StatsClaudie</a>
       </div>
       <div class="col-xs-3 text-right">
         <a href="/sdg-indicators/faq/">FAQs</a> | <a href="/sdg-indicators/about/cookies-and-privacy/">Cookies</a>
@@ -1852,7 +1749,7 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 <script src="/sdg-indicators/assets/js/plugins/jquery.sdgMap.js"></script>
 <script type="text/javascript"> window.loop11_key = "0104054b3b56d396b42e668dfe096cee161454a8"; </script>
 <script src="//cdn.loop11.com/my/loop11.js" type="text/javascript" async="async"></script>
-<script src='/sdg-indicators/assets/js/sdg.js?v=20180321101331'></script>
+<script src='/sdg-indicators/assets/js/sdg.js?v=20180321104744'></script>
 <script src="/sdg-indicators/assets/js/lib/classList.js"></script>
 <script src="/sdg-indicators/assets/js/lib/modernizr-custom.js"></script>
 <script src="//cdn.jsdelivr.net/bluebird/3.5.0/bluebird.min.js"></script>
@@ -1876,6 +1773,7 @@ $(function() {
       }),
       view  = new indicatorView(model, {
         rootElement: '#indicatorData',
+        legendElement: '#plotLegend',
         maxChartHeight: 600,
         tableColumnDefs: [
           { maxCharCount: 25 }, // nowrap
