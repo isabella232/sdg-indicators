@@ -60,9 +60,9 @@ var indicatorView = function (model, options) {
   this._model.onSeriesComplete.attach(function(sender, args) {
     view_obj.initialiseSeries(args);
 
-    if(args.hasGeoData) {
+    if(args.hasGeoData && args.showMap) {
       view_obj._mapView = new mapView();
-      view_obj._mapView.initialise(args.geoData);
+      view_obj._mapView.initialise(args.geoData, args.geoCodeRegEx);
     }
   });
 
@@ -487,11 +487,11 @@ var indicatorView = function (model, options) {
     this.createTable(chartInfo.selectionsTable, chartInfo.indicatorId, '#selectionsTable', true);
     this.createTableFooter(chartInfo.footerFields, '#selectionsTable');
     this.createDownloadButton(chartInfo.selectionsTable, 'Table', chartInfo.indicatorId, '#selectionsTable');
-    this.createSourceButton(chartInfo.indicatorId, '#selectionsTable');
+    this.createSourceButton(chartInfo.shortIndicatorId, '#selectionsTable');
     // Chart buttons
     $('#chartSelectionDownload').empty();
     this.createDownloadButton(chartInfo.selectionsTable, 'Chart', chartInfo.indicatorId, '#chartSelectionDownload');
-    this.createSourceButton(chartInfo.indicatorId, '#chartSelectionDownload');
+    this.createSourceButton(chartInfo.shortIndicatorId, '#chartSelectionDownload');
   };
   
   this.createDownloadButton = function(table, name, indicatorId, el) {
@@ -508,10 +508,11 @@ var indicatorView = function (model, options) {
       })
       .data('csvdata', this.toCsv(table)));
     } else {
-      var headlineId = indicatorId.replace("indicator", "headlines");
+      var headlineId = indicatorId.replace("indicator", "headline");
+      var Id = indicatorId.replace("indicator", "");
       $(el).append($('<a />').text('Download Headline CSV')
       .attr({
-        'href': '{{ site.baseurl }}/data/headlines/' + headlineId + '.csv',
+        'href': '{{ site.remotedatabaseurl }}headline/' + Id + '.csv',
         'download': headlineId + '.csv',
         'title': 'Download headline data as CSV',
         'class': 'btn btn-primary btn-download',
@@ -523,7 +524,7 @@ var indicatorView = function (model, options) {
   this.createSourceButton = function(indicatorId, el) {
     $(el).append($('<a />').text('Download Source CSV')
     .attr({
-      'href': '{{ site.baseurl }}/data/' + indicatorId + '.csv',
+      'href': '{{ site.remotedatabaseurl }}data/' + indicatorId + '.csv',
       'download': indicatorId + '.csv',
       'title': 'Download source data as CSV',
       'class': 'btn btn-primary btn-download',

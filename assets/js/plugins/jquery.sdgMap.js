@@ -15,10 +15,15 @@
     this._defaults = defaults;
     this._name = pluginName;
 
+    this.geoCodeRegEx = this.options.geoCodeRegEx;
+
     this.valueRange = [_.min(_.pluck(this.options.geoData, 'Value')), _.max(_.pluck(this.options.geoData, 'Value'))];
+    this.colorRange = ['#b4c5c1', '#004433'];
 
     this.years = _.uniq(_.pluck(this.options.geoData, 'Year'));
     this.currentYear = this.years[0];
+
+    this.noValueFillColor = '#f0f0f0';
     
     this.init();
   }
@@ -28,17 +33,16 @@
       var centered, projection, path,
         g, effectLayer, resetButton, 
         tooltip, slider, infoPanel,
+        zoomControls,
         that = this,
         width = this.options.width,
         height = this.options.height;
 
       // Define color scale
       var color = d3.scaleLinear()
-        .domain([1, 10])
+        .domain(this.valueRange)
         //.clamp(true)
-        .range(['#fff', '#004433']);
-
-      color.domain(this.valueRange);
+        .range(this.colorRange);
 
       // Load map data
       d3.json(this.options.serviceUrl, function(error, mapData) {
@@ -47,12 +51,15 @@
           return showError.call(that);
         }
 
+        // if(that.options.geoCodeRegEx) {
+        //   mapData.features = _.filter(mapData.features, function(f) {
+        //     return f.properties.lad16cd.match(that.options.geoCodeRegEx);
+        //   });
+        // }
+
         var features = mapData.features;
 
         initialiseUI.call(that);
-
-        // Update color scale domain based on data
-        //color.domain([d3.min(features, getValue.bind(that)), d3.max(features, getValue.bind(that))]);
 
         projection = d3.geoMercator().fitSize([width, height], mapData);
         path = d3.geoPath().projection(projection);
@@ -80,7 +87,7 @@
 
         this.svg = d3.select(this.element).append("svg")
           .attr("width", this.options.width)
-          .attr("height", this.options.height); 
+          .attr("height", this.options.height);
 
         // Add background
         this.svg.append('rect')
@@ -127,13 +134,28 @@
 
         infoPanel = $('<div />').attr('id', 'infoPanel');
         $(this.element).append(infoPanel);
+
+        /*
+        zoomControls = $('<div />').attr('id', 'zoom');
+        zoomControls.append($('<a />').attr({ 
+          'id': 'zoom-in',
+          'href': '#'
+        }).html('+'));
+        zoomControls.append($('<a />').attr({ 
+          'id': 'zoom-out',
+          'href': '#'
+        }).html('-'));
+
+        $(this.element).append(zoomControls);
+        */
       }
 
       function appendScale() {
         var key = d3.select(this.element).append("svg").attr("id", "key").attr("width", this.options.width).attr("height", 40);  
 
         var length = 5;
-        var color = d3.scaleLinear().domain([0, length - 1]).range(['#ffffff', '#004433']);
+        var color = d3.scaleLinear().domain([0, length - 1]).range(this.colorRange);
+        var value = d3.scaleLinear().domain([0, length]).range(this.valueRange);
 
         for (var i = 0; i < length; i++) {
           key.append('rect')
@@ -142,6 +164,14 @@
             .attr('width', this.options.width / 5)
             .attr('height', 20)
             .attr('fill', color(i));
+        }
+
+        for (var i = 0; i < length; i++) {
+          key.append('text')
+            .attr('x', i * this.options.width / 5)
+            .attr('y', 34)
+            .attr('font-size', 13)
+            .html(Math.floor(value(i)));
         }
       } 
 
@@ -161,10 +191,10 @@
       function getValue(d) {
         var geoDataItem = _.findWhere(this.options.geoData, { 
           GeoCode: d.properties.lad16cd,
-          Year: this.currentYear
+          Year: +this.currentYear
         });
 
-        return geoDataItem ? geoDataItem.Value : 0;
+        return geoDataItem ? geoDataItem.Value : undefined;
       }
 
       function getYearValues(d) {
@@ -175,24 +205,23 @@
 
       function updateCurrentYear(year) {
         this.currentYear = year.toString();
-
         this.mapLayer.selectAll('path').transition().duration(500)
           .style('fill', function(d){  return getFill(d); });
       }
 
-      // Get area name length
-      function nameLength(d){
-        var n = getName(d);
-        return n ? n.length : 0;
-      }
-
       // Get area color
       function getFill(d){
-        return color(getValue.call(that, d));
+        if(that.isInScope(d)) {
+          var value = getValue.call(that, d);
+          return value === undefined ? that.noValueFillColor : color(value);
+        } else {
+          return 'transparent';
+        }
       }
 
       function getYearByYearMarkup(d) {
         var yearValues = getYearValues.call(this, d),
+          isInScope = this.isInScope(d),
           content = '<h2>' + getName(d) + '</h2>';
         
         if(yearValues.length) {
@@ -202,7 +231,11 @@
             _.map(_.pluck(yearValues, 'Value'), function(value) { return '<td>' + value + '</td>'; }).join('') + 
             '</tr></table>';
         } else {
-          content += '<p>No data available</p>';
+          if(!isInScope) {
+            content += '<p>Area out of scope</p>';
+          } else {
+            content += '<p>No data available</p>';
+          }
         }
 
         return content;
@@ -221,6 +254,10 @@
       function clicked(d) {
         var x, y, k;
 
+        if(!this.isInScope(d)) {
+          return;
+        }
+
         // Compute centroid of the selected path
         if (d && centered !== d) {
           var centroid = path.centroid(d);
@@ -230,7 +267,7 @@
           var bounds = path.bounds(d),
             boundsWidth = bounds[1][0] - bounds[0][0],
             boundsHeight = bounds[1][1] - bounds[0][1];
-          k = Math.min(Math.floor(width / boundsWidth), Math.floor(height / boundsHeight)) * 0.5;
+          k = Math.min(Math.floor(width / boundsWidth), Math.floor(height / boundsHeight)) * 0.35;
 
           showInfoPanel.call(this, d);
           resetButton.show();
@@ -291,7 +328,9 @@
           .html(getYearByYearMarkup.call(this, d));// +  ' ' + getValue.call(that, d) + ' (' + d.properties.lad16cd + ')' );
       }
     },
-    // additional funcs
+    isInScope: function(d) {
+      return d === null ? true : d.properties.lad16cd.match(this.options.geoCodeRegEx);
+    }  
   };
 
   // A really lightweight plugin wrapper around the constructor,

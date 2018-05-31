@@ -15,7 +15,7 @@
         
         
         <title>
-        Indicator 4.b.1 - Goal 4 - Quality Education
+        Indicator 4.b.1 - Goal  - 
         </title>
         <meta name="description" content="">
         <meta property="og:description" content="">
@@ -43,7 +43,7 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.3/css/fixedColumns.dataTables.min.css">
-        <link rel="stylesheet" href="/sdg-indicators/assets/css/default.css?v=20180321233019">
+        <link rel="stylesheet" href="/sdg-indicators/assets/css/default.css?v=20180531221817">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
     </head>
 <body>
@@ -106,11 +106,6 @@
 
 </header>
 
-
-
-
-
-
 <script type="text/template" id="item_template">
   <% _.each(series, function(seriesItem) { %>
     <div class="variable-selector<% if(allowedFields.indexOf(seriesItem.field) == -1) { %> disallowed child<% }%>" data-field="<%=seriesItem.field%>">
@@ -151,18 +146,38 @@
 </script>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="heading indicator goal-4">
   <div class="container">
     <div class="row">
       <div class="col-xs-4 col-md-3 col-lg-2">
         <a href="/sdg-indicators/quality-education" title="View this goal's indicator list">
-          <img src="/sdg-indicators/assets/img/goals/4.png" alt="Quality Education - Goal 4" />
+          <img src="/sdg-indicators/assets/img/goals/4.png" alt="Quality Education - Goal " />
         </a>
       </div>
       <div class="col-xs-8 col-md-9 col-lg-10">
         <h1>
           <a href="/sdg-indicators/quality-education">
-            <span class="hidden-sm hidden-md hidden-lg">Goal 4: </span>Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all
+            <span class="hidden-sm hidden-md hidden-lg">Goal 4: </span>Volume of official development assistance flows for scholarships by sector and type of study
           </a>
         </h1>
         <h2>Indicator 4.b.1: Volume of official development assistance flows for scholarships by sector and type of study</h2>
@@ -172,24 +187,10 @@
 </div>
 
 <div id="main-content" class="container goal-4">
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <ol class="breadcrumb">
   <li><a href="/sdg-indicators/">Home</a></li>
   
-      <li><a href="/sdg-indicators/quality-education" title="Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all">Goal 4</a></li>
+      <li><a href="/sdg-indicators/quality-education" title="Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all">Goal </a></li>
       <li class="active">Indicator 4.b.1</li>
   
 </ol>
@@ -212,8 +213,8 @@
     </div>
   </div>
   
-  <div class="row" id="indicatorData" data-indicatordata='[{"Year":"2009","Type of aid":null,"Value":"15458.77"},{"Year":"2010","Type of aid":null,"Value":"12554.13743"},{"Year":"2011","Type of aid":null,"Value":"8557.199422"},{"Year":"2012","Type of aid":null,"Value":"21928.57705"},{"Year":"2013","Type of aid":null,"Value":"16571.75442"},{"Year":"2014","Type of aid":null,"Value":"17590.2991"},{"Year":"2015","Type of aid":null,"Value":"71034.01759"},{"Year":"2009","Type of aid":"Scholarships or training in donor country (E01)","Value":"15458.77"},{"Year":"2010","Type of aid":"Scholarships or training in donor country (E01)","Value":"12554.13743"},{"Year":"2011","Type of aid":"Scholarships or training in donor country (E01)","Value":"8557.199422"},{"Year":"2012","Type of aid":"Scholarships or training in donor country (E01)","Value":"21928.57705"},{"Year":"2013","Type of aid":"Scholarships or training in donor country (E01)","Value":"16571.75442"},{"Year":"2014","Type of aid":"Scholarships or training in donor country (E01)","Value":"17590.2991"},{"Year":"2015","Type of aid":"Scholarships or training in donor country (E01)","Value":"70058.95959"},{"Year":"2009","Type of aid":"Imputed student costs (E02)","Value":"0"},{"Year":"2010","Type of aid":"Imputed student costs (E02)","Value":"0"},{"Year":"2011","Type of aid":"Imputed student costs (E02)","Value":"0"},{"Year":"2012","Type of aid":"Imputed student costs (E02)","Value":"0"},{"Year":"2013","Type of aid":"Imputed student costs (E02)","Value":"0"},{"Year":"2014","Type of aid":"Imputed student costs (E02)","Value":"0"},{"Year":"2015","Type of aid":"Imputed student costs (E02)","Value":"975.058"}]' data-indicatorid='indicator_4-b-1' data-country="United Kingdom"
-  data-edgesdata='[]' data-charttitle="Flow of official development assistance (ODA) for scholarships" data-measurementunit="GBP (£000s)" data-datasource="Department for International Development (DfID)" data-geographicalarea="United Kingdom" data-footnote="" data-showdata="true" data-graphtype="line">
+  <div class="row" id="indicatorData" data-indicatorid='indicator_4-b-1' data-id="4-b-1" data-country="United Kingdom"
+  data-charttitle="Flow of official development assistance (ODA) for scholarships" data-measurementunit="GBP (£000s)" data-datasource="Department for International Development (DfID)" data-geographicalarea="United Kingdom" data-footnote="" data-showdata="true" data-graphtype="line" data-geocoderegex="" data-showmap="">
     
     <div class="col-md-3">
       <div id="toolbar">
@@ -222,7 +223,9 @@
           <p>Choose categories from the dropdowns below to see different breakdowns of the data. Some will not be available until a higher level is chosen.</p>
         </span>
         <p>Click on the legend to remove individual lines from the chart.</p>
-        <div id="fields"></div>
+        <div id="fields">
+          <p class="async-loading" data-img="/sdg-indicators/assets/img/loading-small.gif"></p>
+        </div>
       </div>
       <div id="units"></div>
     </div>
@@ -237,13 +240,13 @@
   
   <div id="datatables">
     
-    <a href="/sdg-indicators/data/headlines/headlines_4-b-1.csv" class="btn btn-primary btn-download" download="indicator_4-b-1.csv" tabindex="0" role="button">Download Headline CSV</a>
+    <a href="https://ONSdigital.github.io/sdg-data/headline/4-b-1.csv" class="btn btn-primary btn-download" download="indicator_4-b-1.csv" tabindex="0" role="button">Download Headline CSV</a>
     
-    <a href="/sdg-indicators/data/indicator_4-b-1.csv" class="btn btn-primary btn-download" style='float:left;margin-right:1em' download='indicator_4-b-1.csv' tabindex='0' role='button'>Download Source CSV</a>
+    <a href="https://ONSdigital.github.io/sdg-data/data/4-b-1.csv" class="btn btn-primary btn-download" style='float:left;margin-right:1em' download='indicator_4-b-1.csv' tabindex='0' role='button'>Download Source CSV</a>
     
     <h3>Headline data</h3>
     <table class="table-responsive table table-hover dataTable no-footer" role="grid">
-      <caption>Flow of official development assistance (ODA) for scholarships</caption>
+      <caption></caption>
       <thead>
         
         
@@ -260,7 +263,7 @@
         <tr>
           
           
-          <td>2009</td>    
+          <td>2009.0</td>    
           
           
           
@@ -272,11 +275,11 @@
         <tr>
           
           
-          <td>2010</td>    
+          <td>2010.0</td>    
           
           
           
-          <td class="table-value">12554.137429999999</td>
+          <td class="table-value">12554.13743</td>
           
           
         </tr>
@@ -284,7 +287,7 @@
         <tr>
           
           
-          <td>2011</td>    
+          <td>2011.0</td>    
           
           
           
@@ -296,7 +299,7 @@
         <tr>
           
           
-          <td>2012</td>    
+          <td>2012.0</td>    
           
           
           
@@ -308,11 +311,11 @@
         <tr>
           
           
-          <td>2013</td>    
+          <td>2013.0</td>    
           
           
           
-          <td class="table-value">16571.754419999997</td>
+          <td class="table-value">16571.75442</td>
           
           
         </tr>
@@ -320,7 +323,7 @@
         <tr>
           
           
-          <td>2014</td>    
+          <td>2014.0</td>    
           
           
           
@@ -332,7 +335,7 @@
         <tr>
           
           
-          <td>2015</td>    
+          <td>2015.0</td>    
           
           
           
@@ -347,13 +350,7 @@
   
   <div id="datatableFooter">
     
-    <p>Source: Department for International Development (DfID)</p>
     
-    
-    <p>Geographical Area: United Kingdom</p>
-    
-    
-    <p>Unit of Measurement: GBP (£000s)</p>
     
     
   </div>
@@ -364,22 +361,24 @@
       <section>
         
         
-        <ul class="nav nav-tabs data-view" role="tablist">
-          <li role="presentation" class="nav-item active">
-            <a class="nav-link" data-toggle="tab" href="#chartview" aria-controls="chartview" role="tab">Chart</a>
-          </li>
-          <li role="presentation" class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#tableview" aria-controls="tableview" role="tab">Table</a>
-          </li>
-          <li role="presentation" class="nav-item map" style="display:none">
-            <a class="nav-link" data-toggle="tab" href="#mapview" aria-controls="mapview" role="tab">Map</a>
-          </li>
-        </ul>
-        
-        <!-- Tab panes -->
-        <div class="tab-content data-view">
-          <div role="tabpanel" class="tab-pane active" id="chartview">
-            
+        <p class="async-loading" data-img="/sdg-indicators/assets/img/loading-small.gif"></p>
+        <div class="async-loaded" style="display:none">
+          <ul class="nav nav-tabs data-view" role="tablist">
+            <li role="presentation" class="nav-item active">
+              <a class="nav-link" data-toggle="tab" href="#chartview" aria-controls="chartview" role="tab">Chart</a>
+            </li>
+            <li role="presentation" class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#tableview" aria-controls="tableview" role="tab">Table</a>
+            </li>
+            <li role="presentation" class="nav-item map" style="display:none">
+              <a class="nav-link" data-toggle="tab" href="#mapview" aria-controls="mapview" role="tab">Map</a>
+            </li>
+          </ul>
+          
+          <!-- Tab panes -->
+          <div class="tab-content data-view">
+            <div role="tabpanel" class="tab-pane active" id="chartview">
+              
     
     
 
@@ -398,22 +397,19 @@
     
 
 
-          </div>
-          <div role="tabpanel" class="tab-pane" id="tableview">
-            <div id="selectionsTable"></div>
-          </div>
-          <div role="tabpanel" class="tab-pane" id="mapview" class="map">
-            <div id="map">
-              <img src="/sdg-indicators/assets/img/loading.gif" alt="Loading map" />
+            </div>
+            <div role="tabpanel" class="tab-pane" id="tableview">
+              <div id="selectionsTable"></div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="mapview" class="map">
+              <div id="map">
+                <img src="/sdg-indicators/assets/img/loading.gif" alt="Loading map" />
+              </div>
             </div>
           </div>
-        </div>
+        </div> 
         
-        
-        <div class="alert alert-warning" role="alert">
-          <i class="fa fa-info" aria-hidden="true"></i> See metadata tab for definitions and methodology information
-        </div>
-        
+               
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
           <li role="presentation" class="nav-item active">
@@ -564,15 +560,132 @@
     
       
       <tr>
-        <th scope="row">Last updated </th>
+        <th scope="row">Data last updated </th>
         <td>
           
+            
+            
+            
+            
+
+            
+              <a href="https://github.com/ONSdigital/sdg-data/commit/f4ce428b53e79ca9b3e32ab14eac1031d7bc6652" target="_blank">
+                2018-04-04: see changes on GitHub <span class="visuallyhidden">opens in a new window</span>
+              </a>
+            
             
           
         </td>
         </tr>
         
       
+  
+    
+      
+      
+  
+    
+      
+      <tr>
+        <th scope="row">Metadata last updated </th>
+        <td>
+          
+            
+            
+            
+            
+
+            
+              <a href="https://github.com/ONSdigital/sdg-data/commit/828f72873bdf983f3f71ce6cdc1c1079a95cbd87" target="_blank">
+                2018-05-31: see changes on GitHub <span class="visuallyhidden">opens in a new window</span>
+              </a>
+            
+            
+          
+        </td>
+        </tr>
+        
+      
+  
+    
+      
+      
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
   
     
   
@@ -897,6 +1010,88 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
 </table>
 
               </article>
@@ -915,6 +1110,28 @@
     <div class="col-md-6">
       
       <table class="table table-hover">
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
   
     
   
@@ -1164,6 +1381,66 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
 </table>
 
     </div>
@@ -1175,8 +1452,8 @@
           
           <div role="tabpanel" class="tab-pane" id="edit">
             <div class="edit-container">
-              <a class="btn btn-primary" href="http://prose.io/#datasciencecampus/sdg-indicators/edit/develop/data/indicator_4-b-1.csv">Edit Data</a>
-              <a class="btn btn-primary" href="http://prose.io/#datasciencecampus/sdg-indicators/edit/develop/_indicators/4-b-1.md">Edit Metadata</a>
+              <a class="btn btn-primary" href="http://prose.io/#ONSdigital/sdg-data/edit/develop/data/indicator_4-b-1.csv">Edit Data</a>
+              <a class="btn btn-primary" href="http://prose.io/#ONSdigital/sdg-data/edit/develop/meta/4-b-1.md">Edit Metadata</a>
             </div>
           </div>
           
@@ -1227,7 +1504,7 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 <script src="/sdg-indicators/assets/js/plugins/jquery.sdgMap.js"></script>
 <script type="text/javascript"> window.loop11_key = "0104054b3b56d396b42e668dfe096cee161454a8"; </script>
 <script src="//cdn.loop11.com/my/loop11.js" type="text/javascript" async="async"></script>
-<script src='/sdg-indicators/assets/js/sdg.js?v=20180321233019'></script>
+<script src='/sdg-indicators/assets/js/sdg.js?v=20180531221817'></script>
 <script src="/sdg-indicators/assets/js/lib/classList.js"></script>
 <script src="/sdg-indicators/assets/js/lib/modernizr-custom.js"></script>
 <script src="//cdn.jsdelivr.net/bluebird/3.5.0/bluebird.min.js"></script>
@@ -1236,31 +1513,47 @@ $(function() {
     if($('#indicatorData').length) {
       var domData = $('#indicatorData').data();
 
-      var model = new indicatorModel({
-        data: domData.indicatordata,
-        country: domData.country,
-        indicatorId: domData.indicatorid,
-        chartTitle: domData.charttitle,
-        edgesData: domData.edgesdata,
-        measurementUnit: domData.measurementunit,
-        dataSource: domData.datasource,
-        geographicalArea: domData.geographicalarea,
-        showData: domData.showdata,
-        footnote: domData.footnote,
-        graphType: domData.graphtype
-      }),
-      view  = new indicatorView(model, {
-        rootElement: '#indicatorData',
-        legendElement: '#plotLegend',
-        maxChartHeight: 600,
-        tableColumnDefs: [
-          { maxCharCount: 25 }, // nowrap
-          { maxCharCount: 35, width: 200 },
-          { maxCharCount: Infinity, width: 250 }
-        ]
-      }),
-      controller = new indicatorController(model, view);
-      controller.initialise();
+      $('.async-loading').each(function(i, obj) {
+          $(obj).append($('<img />').attr('src', $(obj).data('img')));
+      });
+
+      $.ajax({ 
+        url: 'https://ONSdigital.github.io/sdg-data/comb/' + domData.id + '.json', 
+        success: function(res) { 
+
+          $('.async-loading').remove();
+          $('.async-loaded').show();
+
+          var model = new indicatorModel({
+            data: res.data,
+            edgesData: res.edges,
+            geoCodeRegEx: domData.geocoderegex,
+            showMap: domData.showmap,
+            country: domData.country,
+            indicatorId: domData.indicatorid,
+            shortIndicatorId: domData.id,
+            chartTitle: domData.charttitle,
+            measurementUnit: domData.measurementunit,
+            dataSource: domData.datasource,
+            geographicalArea: domData.geographicalarea,
+            showData: domData.showdata,
+            footnote: domData.footnote,
+            graphType: domData.graphtype
+          }),
+          view  = new indicatorView(model, {
+            rootElement: '#indicatorData',
+            legendElement: '#plotLegend',
+            maxChartHeight: 600,
+            tableColumnDefs: [
+              { maxCharCount: 25 }, // nowrap
+              { maxCharCount: 35, width: 200 },
+              { maxCharCount: Infinity, width: 250 }
+            ]
+          }),
+          controller = new indicatorController(model, view);
+          controller.initialise();
+        }
+      });
     }
 
     var switcher = new accessibilitySwitcher();

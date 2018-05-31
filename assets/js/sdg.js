@@ -159,11 +159,6 @@ var indicatorDataStore = function(dataUrl) {
   this.getData = function() {
     that = this;
     return new Promise(function(resolve, reject) {
-
-      // if(Modernizr.localStorage &&) {
-
-      // }
-
       $.getJSON(that.dataUrl, function(data) {
         resolve(data);
       }).fail(function(err) {
@@ -171,7 +166,6 @@ var indicatorDataStore = function(dataUrl) {
       });      
     });
   };
-
 };
 var indicatorModel = function (options) {
 
@@ -196,13 +190,25 @@ var indicatorModel = function (options) {
     return Math.round(value * mult) / mult;
   };
 
+  // json conversion:
+  var convertJsonFormat = function(data) {
+    var keys = _.keys(data);
+
+    return _.map(data[keys[0]], function(item, i) {
+      return _.object(keys, _.map(keys, function(k) {
+        return data[k][i];
+      }));
+    });
+  }
+
   // general members:
   var that = this;
-  this.data = options.data;
-  this.edgesData = options.edgesData;
+  this.data = convertJsonFormat(options.data);
+  this.edgesData = convertJsonFormat(options.edgesData);
   this.hasHeadline = true;
   this.country = options.country;
   this.indicatorId = options.indicatorId;
+  this.shortIndicatorId = options.shortIndicatorId;
   this.chartTitle = options.chartTitle;
   this.graphType = options.graphType;
   this.measurementUnit = options.measurementUnit;
@@ -219,6 +225,8 @@ var indicatorModel = function (options) {
   this.validParentsByChild = {};
   this.hasGeoData = false;
   this.geoData = [];
+  this.geoCodeRegEx = options.geoCodeRegEx;
+  this.showMap = options.showMap;
 
   // initialise the field information, unique fields and unique values for each field:
   (function initialise() {
@@ -681,6 +689,7 @@ var indicatorModel = function (options) {
       headlineTable: headlineTable,
       selectionsTable: selectionsTable,
       indicatorId: this.indicatorId,
+      shortIndicatorId: this.shortIndicatorId,
       selectedUnit: this.selectedUnit,
       footerFields: this.footerFields
     });
@@ -717,7 +726,9 @@ var indicatorModel = function (options) {
         allowedFields: this.allowedFields,
         edges: this.edgesData,
         hasGeoData: this.hasGeoData,
-        geoData: this.geoData
+        geoData: this.geoData,
+        geoCodeRegEx: this.geoCodeRegEx,
+        showMap: this.showMap
       });
 
 
@@ -750,10 +761,11 @@ var mapView = function () {
   
   "use strict";
   
-  this.initialise = function(geoData) {
+  this.initialise = function(geoData, geoCodeRegEx) {
     $('.map').show();
     $('#map').sdgMap({
-      geoData: geoData
+      geoData: geoData,
+      geoCodeRegEx: geoCodeRegEx
     });
   }
 };
@@ -820,9 +832,9 @@ var indicatorView = function (model, options) {
   this._model.onSeriesComplete.attach(function(sender, args) {
     view_obj.initialiseSeries(args);
 
-    if(args.hasGeoData) {
+    if(args.hasGeoData && args.showMap) {
       view_obj._mapView = new mapView();
-      view_obj._mapView.initialise(args.geoData);
+      view_obj._mapView.initialise(args.geoData, args.geoCodeRegEx);
     }
   });
 
@@ -1247,11 +1259,11 @@ var indicatorView = function (model, options) {
     this.createTable(chartInfo.selectionsTable, chartInfo.indicatorId, '#selectionsTable', true);
     this.createTableFooter(chartInfo.footerFields, '#selectionsTable');
     this.createDownloadButton(chartInfo.selectionsTable, 'Table', chartInfo.indicatorId, '#selectionsTable');
-    this.createSourceButton(chartInfo.indicatorId, '#selectionsTable');
+    this.createSourceButton(chartInfo.shortIndicatorId, '#selectionsTable');
     // Chart buttons
     $('#chartSelectionDownload').empty();
     this.createDownloadButton(chartInfo.selectionsTable, 'Chart', chartInfo.indicatorId, '#chartSelectionDownload');
-    this.createSourceButton(chartInfo.indicatorId, '#chartSelectionDownload');
+    this.createSourceButton(chartInfo.shortIndicatorId, '#chartSelectionDownload');
   };
   
   this.createDownloadButton = function(table, name, indicatorId, el) {
@@ -1268,10 +1280,11 @@ var indicatorView = function (model, options) {
       })
       .data('csvdata', this.toCsv(table)));
     } else {
-      var headlineId = indicatorId.replace("indicator", "headlines");
+      var headlineId = indicatorId.replace("indicator", "headline");
+      var Id = indicatorId.replace("indicator", "");
       $(el).append($('<a />').text('Download Headline CSV')
       .attr({
-        'href': '/sdg-indicators/data/headlines/' + headlineId + '.csv',
+        'href': 'https://ONSdigital.github.io/sdg-data/headline/' + Id + '.csv',
         'download': headlineId + '.csv',
         'title': 'Download headline data as CSV',
         'class': 'btn btn-primary btn-download',
@@ -1283,7 +1296,7 @@ var indicatorView = function (model, options) {
   this.createSourceButton = function(indicatorId, el) {
     $(el).append($('<a />').text('Download Source CSV')
     .attr({
-      'href': '/sdg-indicators/data/' + indicatorId + '.csv',
+      'href': 'https://ONSdigital.github.io/sdg-data/data/' + indicatorId + '.csv',
       'download': indicatorId + '.csv',
       'title': 'Download source data as CSV',
       'class': 'btn btn-primary btn-download',
@@ -1430,13 +1443,14 @@ var indicatorSearch = function(inputElement, indicatorDataStore) {
     $('#main-content h1 span').text(searchString);
     $('#main-content h1').show();
   
-    //this.getData().then(function() {
     this.indicatorDataStore.getData().then(function(data) {
 
       that.processData(data);
 
       var searchResults = _.filter(that.indicatorData, function(indicator) {
-        return indicator.title.toLowerCase().indexOf(searchString.toLowerCase()) != -1; 
+        return indicator.title.toLowerCase().indexOf(searchString.toLowerCase()) != -1 ||
+          indicator.description.toLowerCase().indexOf(searchString.toLowerCase()) != -1 ||
+          indicator.keywords.toLowerCase().indexOf(searchString.toLowerCase()) != -1;
       });
 
       // goal
@@ -1448,6 +1462,10 @@ var indicatorSearch = function(inputElement, indicatorDataStore) {
         var goal = _.findWhere(results, { goalId: result.goalId }),
             indicator = {
               parsedTitle: result.title.replace(new RegExp('(' + escapeRegExp(searchString) + ')', 'gi'), '<span class="match">$1</span>'),
+              parsedDescription: result.description.replace(new RegExp('(' + escapeRegExp(searchString) + ')', 'gi'), '<span class="match">$1</span>'),
+              parsedKeywords: result.keywords.replace(new RegExp('(' + escapeRegExp(searchString) + ')', 'gi'), '<span class="match">$1</span>'),
+              hasKeywords: result.keywords && result.keywords.length,
+              hasDescription: result.description && result.description.length,
               id: result.id,
               title: result.title,
               href: result.href,

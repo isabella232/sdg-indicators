@@ -21,13 +21,25 @@ var indicatorModel = function (options) {
     return Math.round(value * mult) / mult;
   };
 
+  // json conversion:
+  var convertJsonFormat = function(data) {
+    var keys = _.keys(data);
+
+    return _.map(data[keys[0]], function(item, i) {
+      return _.object(keys, _.map(keys, function(k) {
+        return data[k][i];
+      }));
+    });
+  }
+
   // general members:
   var that = this;
-  this.data = options.data;
-  this.edgesData = options.edgesData;
+  this.data = convertJsonFormat(options.data);
+  this.edgesData = convertJsonFormat(options.edgesData);
   this.hasHeadline = true;
   this.country = options.country;
   this.indicatorId = options.indicatorId;
+  this.shortIndicatorId = options.shortIndicatorId;
   this.chartTitle = options.chartTitle;
   this.graphType = options.graphType;
   this.measurementUnit = options.measurementUnit;
@@ -44,6 +56,8 @@ var indicatorModel = function (options) {
   this.validParentsByChild = {};
   this.hasGeoData = false;
   this.geoData = [];
+  this.geoCodeRegEx = options.geoCodeRegEx;
+  this.showMap = options.showMap;
 
   // initialise the field information, unique fields and unique values for each field:
   (function initialise() {
@@ -506,6 +520,7 @@ var indicatorModel = function (options) {
       headlineTable: headlineTable,
       selectionsTable: selectionsTable,
       indicatorId: this.indicatorId,
+      shortIndicatorId: this.shortIndicatorId,
       selectedUnit: this.selectedUnit,
       footerFields: this.footerFields
     });
@@ -542,7 +557,9 @@ var indicatorModel = function (options) {
         allowedFields: this.allowedFields,
         edges: this.edgesData,
         hasGeoData: this.hasGeoData,
-        geoData: this.geoData
+        geoData: this.geoData,
+        geoCodeRegEx: this.geoCodeRegEx,
+        showMap: this.showMap
       });
 
 
